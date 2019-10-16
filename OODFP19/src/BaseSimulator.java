@@ -7,11 +7,11 @@ import com.j256.ormlite.table.TableUtils;
 import models.Checkbook;
 
 public class BaseSimulator {
-	
+
 	public static JdbcConnectionSource createNewDatabase(String fileName) {
-		 
+
         String url = "jdbc:sqlite:sqlite/db/" + fileName;
- 
+
         JdbcConnectionSource connectionSource = null;
 		try {
 			connectionSource = new JdbcConnectionSource(url);
@@ -22,8 +22,9 @@ public class BaseSimulator {
 		}
 		return connectionSource;
     }
-	
+
 	public static void main(String[] args) {
+
 		JdbcConnectionSource connectionSource = createNewDatabase("test.db");
 		try {
 			connectionSource.close();
