@@ -15,7 +15,8 @@ public class BaseSimulator {
         JdbcConnectionSource connectionSource = null;
 		try {
 			connectionSource = new JdbcConnectionSource(url);
-	        TableUtils.createTableIfNotExists(connectionSource, Checkbook.class);
+	        //TODO: This should be a factory pattern: Row.class -> Dao object
+			TableUtils.createTableIfNotExists(connectionSource, Checkbook.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
