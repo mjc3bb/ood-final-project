@@ -24,7 +24,6 @@ public class BaseSimulator {
     }
 
 	public static void main(String[] args) {
-
 		JdbcConnectionSource connectionSource = createNewDatabase("test.db");
 		try {
 			connectionSource.close();
@@ -32,6 +31,8 @@ public class BaseSimulator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		LaunchInterface.execute(args);
 	}
 
 }
