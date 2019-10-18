@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - BaseSimulator",
+            "request": "launch",
+            "mainClass": "BaseSimulator",
+            "projectName": "OODFP19"
+        }
+    ]
+}
