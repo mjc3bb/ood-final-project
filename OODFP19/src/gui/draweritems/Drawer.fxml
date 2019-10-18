@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="sideDrawer" maxHeight="600.0" maxWidth="170.0" minHeight="600.0" minWidth="170.0" prefHeight="600.0" prefWidth="170.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.draweritems.DrawerController">
+   <children>
+      <AnchorPane prefHeight="124.0" prefWidth="169.0">
+         <children>
+            <Label fx:id="welcomeLabel" layoutX="5.0" layoutY="15.0" text="Welcome," AnchorPane.bottomAnchor="80.6" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="98.6" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="backButton" accessibleText="backButton" layoutX="130.0" layoutY="4.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="32.0" AnchorPane.bottomAnchor="82.8" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="7.199999999999989" AnchorPane.topAnchor="4.0">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/drawer_backaction.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="nameLabel" layoutX="5.0" layoutY="34.0" text="UserName!" AnchorPane.bottomAnchor="54.8" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="70.6" AnchorPane.topAnchor="34.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="overviewButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Overview" />
+      <Button fx:id="expensesButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Expenses" />
+      <Button fx:id="incomeButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Income" />
+      <Button fx:id="utilitiesButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Utilities" />
+      <Button fx:id="manageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Manage" />
+      <AnchorPane prefHeight="151.0" prefWidth="169.0" />
+   </children>
+</VBox>
