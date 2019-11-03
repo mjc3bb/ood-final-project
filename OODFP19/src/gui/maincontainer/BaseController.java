@@ -1,25 +1,126 @@
 package gui.maincontainer;
 
 import java.io.IOException;
+import javafx.stage.FileChooser;
 import java.net.URL;
 import java.util.ResourceBundle;
+import objects.ViewChanger;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.*;
 import javafx.scene.layout.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
 
 public class BaseController implements Initializable {
 	
     @FXML
-    private AnchorPane mainPane;
+    private AnchorPane drawerPane, viewPane;
 
     @FXML
     private JFXDrawer drawer;
+    
+    @FXML
+    private JFXButton minimize, fullscreen, close;
+    
+    @FXML 
+    private Label windowName;
+    
+    private double x, y;
+    
+    private ViewChanger changeView = new ViewChanger();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		initializeSideDrawer();
+		viewPane.getChildren().setAll(changeView.loadOverview());
+		windowName.setText("Overview");
+		
+	}
+
+	/**
+	 * Loads Overview view.
+	 */
+	@FXML
+	private void loadOverview() {
+		drawerAction(); 
+		viewPane.getChildren().setAll(changeView.loadOverview());
+		windowName.setText("Overview");
+	}
+
+	private void loadExpenses() {
+		drawerAction();		
+	}
+
+	private void loadIncome() {
+		drawerAction();		
+	}
+
+	private void loadUtilities() {
+		drawerAction();
+	}
+
+	private void loadManage() {
+		drawerAction();		
+	}
+ 
+	/**
+	 * Open or close side drawer.
+	 */
+	public void drawerAction() {
+		if (drawer.isOpened()) drawer.close();
+		else drawer.open();
+	}
+	
+	/**
+	 * Update window coordinates upon dragging window.
+	 * @param event
+	 */
+	@FXML
+	private void dragged(MouseEvent event) {
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setX(event.getScreenX() - x);
+		stage.setY(event.getScreenY() - y);
+	}
+
+	/**
+	 * Grabs coordinates of mouse on window.
+	 * @param event
+	 */
+	@FXML
+	private void pressed(MouseEvent event) {
+		x = event.getSceneX();
+		x = event.getSceneY();
+	}
+	
+	/**
+	 * Close the window.
+	 */
+	@FXML
+	private void close() {
+		System.exit(0);
+	}
+	
+	/**
+	 * Minimize Window
+	 */
+	@FXML
+	private void minimize() {
+		Stage stage = (Stage) minimize.getScene().getWindow();
+		stage.setIconified(true);
+		
+	}
+	
+	/**
+	 * Load side drawer upon application initialization.
+	 */
+	private void initializeSideDrawer() {
 		
 		try {
 			VBox box = FXMLLoader.load(getClass().getResource("/gui/draweritems/drawer.fxml"));
@@ -31,7 +132,7 @@ public class BaseController implements Initializable {
 	       		{
 	        		drawer.close();
 	        	});
-	       
+	       	
 	        // Assign views to buttons.
 	        for (Node node : box.getChildren()) {
 	        	if (node.getId() != null) {
@@ -57,42 +158,13 @@ public class BaseController implements Initializable {
 		        		case "manageButton"		:
 		        			loadManage();
 		        			break;
-		        	}});
+		        		}
+	        		});
 	        	}
 	        }
 		}
-		catch (IOException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		catch (NullPointerException e) {
-			System.out.println("lol");
-		}
 	}
-
-	private void loadOverview() {
-		drawerAction();
-		
-	}
-
-	private void loadExpenses() {
-		drawerAction();		
-	}
-
-	private void loadIncome() {
-		drawerAction();		
-	}
-
-	private void loadUtilities() {
-		drawerAction();
-	}
-
-	private void loadManage() {
-		drawerAction();		
-	}
-
-	public void drawerAction() {
-		if (drawer.isOpened()) drawer.close();
-		else drawer.open();
-	}
-
 }
