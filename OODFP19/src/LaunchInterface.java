@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.StageStyle;
 
 public class LaunchInterface extends Application {
 
@@ -16,6 +17,7 @@ public class LaunchInterface extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("/gui/maincontainer/base.fxml"));
 		primaryStage.setTitle("Welcome");
 	    primaryStage.setScene(new Scene(root));
+	    primaryStage.initStyle(StageStyle.TRANSPARENT);
 	    //primaryStage.getIcons().add(new Image("application icon here"));
 	    primaryStage.show();
 	}

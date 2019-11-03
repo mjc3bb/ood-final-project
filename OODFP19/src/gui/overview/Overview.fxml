@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import gui.overview.DoughnutChart?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.overview.OverviewController">
+   <children>
+      <DoughnutChart fx:id="chart" layoutX="842.0" layoutY="87.0" prefHeight="270.0" prefWidth="279.0" AnchorPane.bottomAnchor="343.0" AnchorPane.leftAnchor="842.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="87.0" />
+      <Label layoutX="922.0" layoutY="85.0" text="Spending by Category" />
+      <Label layoutX="521.0" layoutY="85.0" text="This Months Expenditures" />
+      <Label layoutX="195.0" layoutY="85.0" text="Accounts" />
+      <Label layoutX="168.0" layoutY="306.0" text="Income this Month" />
+      <TableView layoutX="65.0" layoutY="111.0" prefHeight="159.0" prefWidth="306.0">
+        <columns>
+          <TableColumn prefWidth="155.42859649658203" text="Account Name" />
+          <TableColumn prefWidth="150.28570556640625" text="Amount" />
+        </columns>
+      </TableView>
+      <TableView layoutX="67.0" layoutY="326.0" prefHeight="200.0" prefWidth="306.0">
+        <columns>
+          <TableColumn prefWidth="110.85712432861328" text="Job Name" />
+          <TableColumn prefWidth="91.4285888671875" text="Amount" />
+            <TableColumn prefWidth="103.4285888671875" text="Date" />
+        </columns>
+      </TableView>
+      <TableView layoutX="421.0" layoutY="110.0" prefHeight="415.0" prefWidth="335.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Location" />
+          <TableColumn prefWidth="75.0" text="Amount" />
+            <TableColumn prefWidth="75.0" text="Date" />
+            <TableColumn prefWidth="108.0000435965402" text="Account" />
+        </columns>
+      </TableView>
+      <Label layoutX="161.0" layoutY="572.0" text="Total Account Balance" />
+      <Label layoutX="198.0" layoutY="596.0" text="\$XXX.XX" />
+      <Label layoutX="371.0" layoutY="572.0" text="Total Income This Month:" />
+      <Label layoutX="416.0" layoutY="596.0" text="\$XXX.XX" />
+      <Label layoutX="589.0" layoutY="572.0" text="Total Owed:" />
+      <Label layoutX="598.0" layoutY="596.0" text="\$XXX.XX" />
+      <Label layoutX="930.0" layoutY="451.0" text="Quick Add Expense" />
+      <JFXTextField layoutX="918.0" layoutY="495.0" promptText="Location" />
+      <JFXTextField layoutX="800.0" layoutY="495.0" prefHeight="25.0" prefWidth="91.0" promptText="Amount" />
+      <JFXDatePicker layoutX="845.0" layoutY="567.0" />
+      <MenuButton layoutX="1087.0" layoutY="495.0" mnemonicParsing="false" text="Account">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <JFXButton layoutX="1061.0" layoutY="568.0" text="Submit" />
+      <Label layoutX="31.0" layoutY="14.0" text="NOVEMBER 2019">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
