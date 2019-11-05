@@ -1,10 +1,19 @@
+package main;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
+import com.j256.ormlite.db.DatabaseType;
+import com.j256.ormlite.db.DatabaseTypeUtils;
+import com.j256.ormlite.field.DatabaseFieldConfig;
+import com.j256.ormlite.field.DatabaseFieldConfigLoader;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-import models.Checkbook;
+import models.Budget;
+import models.Category;
+import models.Recurring;
+import models.Transaction;
 
 public class BaseSimulator {
 	
@@ -16,7 +25,13 @@ public class BaseSimulator {
 		try {
 			connectionSource = new JdbcConnectionSource(url);
 	        //TODO: This should be a factory pattern: Row.class -> Dao object
-			TableUtils.createTableIfNotExists(connectionSource, Checkbook.class);
+			//TableUtils.createTableIfNotExists(connectionSource, Checkbook.class);
+			//Could this create a database from a text file? DatabaseFieldConfigLoader. http://ormlite.com/javadoc/ormlite-core/com/j256/ormlite/field/DatabaseFieldConfigLoader.html
+			TableUtils.createTableIfNotExists(connectionSource, Transaction.class);
+			TableUtils.createTableIfNotExists(connectionSource, Budget.class);
+			TableUtils.createTableIfNotExists(connectionSource, Category.class);
+			TableUtils.createTableIfNotExists(connectionSource, Recurring.class);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

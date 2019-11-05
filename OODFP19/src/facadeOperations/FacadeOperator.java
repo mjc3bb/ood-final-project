@@ -1,0 +1,92 @@
+package facadeOperations;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.table.DatabaseTable;
+
+public class FacadeOperator {
+	//Create several objects of the things that will be used in these methods. Most likely some type of DAO will be passed to each object. 
+	//Or maybe the methods they have will require a DAO as an argument.
+	private Additon add;
+	private Budget budget;
+	private Category cat;
+	private Recurring recurring;
+	
+	//All the methods will use this connection to work with the database.
+	private String url = "jdbc:sqlite:sqlite/db/test.db";
+	public JdbcConnectionSource con = null;
+	
+	FacadeOperator() throws SQLException {
+		con = new JdbcConnectionSource(url);
+		this.add = new Additon(con);
+		this.budget = new Budget(con);
+		this.cat = new Category(con);
+		this.recurring = new Recurring(con);
+		
+	}
+	
+	//Create several methods to do application operations (that's probably a good name for this class, "ApplicationOperator".
+	
+	//Expenditure tracking
+	public void ExpendituresTracking() {
+		//Tracks total expenditures and provides table for recurring expenditures, expenditures by month, and total expenditures
+	}
+	
+	//Income Tracking
+	public void IncomeTracking(){
+		//Tracks total income and provides table for recurring income, income by month, and total income.
+	}
+	
+	//Category Addition
+	public void addCategory() {
+		//Add new categories for your budget
+	}
+	
+	//Add Recurring Expense
+	public void recurringExpense() {
+		//Add new recurring expenses like bills
+	}
+	
+	//Add Recurring income
+	public void recurringIncome() {
+		//Add new recurring income like from a job
+	}
+	
+	//Create Budget
+	public void createBudget() {
+		//User can add different categories for expenses that they allocate out to a budget.
+	}
+	
+	//Convert currency
+	public void convertCurrency() {
+		//Could make user select the currency here or could be passed through as argument.
+	}
+	
+	//Edit budget
+	public void editBudget() {
+		//Allows user to add or remove categories from their budget and reallocate their money
+	}
+	
+	//Compare actual spending versus budget
+	public void compare() {
+		//This will pull data from each category type of spending and compare it to your assigned budget
+	}
+	
+	//Look at specific categorical spending
+	public void viewCategory() {
+		//returns the total amount spent in a category and optionally shows what was spent in the category you chose area
+	}
+	
+	//Remove entry
+	public void removeEntry() {
+		//Removes some type of entry to your balance. Say you made a return on an item, or some type of income was an accident.
+		//This may not be needed at all really. This could just be seen in the changing expenses.
+	}
+	
+	//Consider any other methods that would be key features of the application
+	
+}
