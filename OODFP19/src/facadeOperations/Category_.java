@@ -2,11 +2,11 @@ package facadeOperations;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 
-public class Category {
+public class Category_ {
 
 	private JdbcConnectionSource conn = null;
 	
-	Category(JdbcConnectionSource con){
+	Category_(JdbcConnectionSource con){
 		this.conn = con;
 	}
 	

@@ -2,11 +2,11 @@ package facadeOperations;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 
-public class Recurring {
+public class Recurring_ {
 
 	private JdbcConnectionSource conn = null;
 	
-	Recurring(JdbcConnectionSource con){
+	Recurring_(JdbcConnectionSource con){
 		this.conn = con;
 	}
 	

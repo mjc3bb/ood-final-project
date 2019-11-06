@@ -2,11 +2,11 @@ package facadeOperations;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 
-public class Budget {
+public class Budget_ {
 
 	private JdbcConnectionSource conn = null;
 	
-	Budget(JdbcConnectionSource con){
+	Budget_(JdbcConnectionSource con){
 		this.conn = con;
 	}
 	

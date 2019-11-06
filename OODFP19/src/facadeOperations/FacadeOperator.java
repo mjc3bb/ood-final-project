@@ -3,18 +3,26 @@ package facadeOperations;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 
+import models.Budget;
+import models.Category;
+import models.Recurring;
+import models.Transaction;
+
 public class FacadeOperator {
 	//Create several objects of the things that will be used in these methods. Most likely some type of DAO will be passed to each object. 
 	//Or maybe the methods they have will require a DAO as an argument.
 	private Additon add;
-	private Budget budget;
-	private Category cat;
-	private Recurring recurring;
+	private Budget_ budget;
+	private Category_ cat;
+	private Recurring_ recurring;
+	private Transaction transaction;
 	
 	//All the methods will use this connection to work with the database.
 	private String url = "jdbc:sqlite:sqlite/db/test.db";
@@ -23,17 +31,24 @@ public class FacadeOperator {
 	FacadeOperator() throws SQLException {
 		con = new JdbcConnectionSource(url);
 		this.add = new Additon(con);
-		this.budget = new Budget(con);
-		this.cat = new Category(con);
-		this.recurring = new Recurring(con);
-		
+		this.budget = new Budget_(con);
+		this.cat = new Category_(con);
+		this.recurring = new Recurring_(con);
+		this.transaction = new Transaction();
+		//Create DAOs for database tables (models)
+		Dao<Budget,String> budgetDao = DaoManager.createDao(con, Budget.class);
+		Dao<Category, String> categoryDao = DaoManager.createDao(con, Category.class);
+		Dao<Recurring, String> recurringDao = DaoManager.createDao(con, Recurring.class);
+		Dao<Transaction,String> transactionDao = DaoManager.createDao(con, Transaction.class);
 	}
 	
 	//Create several methods to do application operations (that's probably a good name for this class, "ApplicationOperator".
 	
 	//Expenditure tracking
-	public void ExpendituresTracking() {
+	public void ExpendituresTracking() throws SQLException {
 		//Tracks total expenditures and provides table for recurring expenditures, expenditures by month, and total expenditures
+		//Hopefully this returns a query result
+		String expenditures = add.addAllExpenses();
 	}
 	
 	//Income Tracking
