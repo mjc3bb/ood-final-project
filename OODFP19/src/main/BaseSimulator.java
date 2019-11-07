@@ -13,11 +13,11 @@ import models.Recurring;
 import models.Transaction;
 
 public class BaseSimulator {
-	
+
 	public static JdbcConnectionSource createNewDatabase(String fileName) {
-		 
+
         String url = "jdbc:sqlite:sqlite/db/" + fileName;
- 
+
         JdbcConnectionSource connectionSource = null;
 		try {
 			connectionSource = new JdbcConnectionSource(url);
@@ -28,7 +28,7 @@ public class BaseSimulator {
 			TableUtils.createTableIfNotExists(connectionSource, Budget.class);
 			TableUtils.createTableIfNotExists(connectionSource, Category.class);
 			TableUtils.createTableIfNotExists(connectionSource, Recurring.class);
-			
+
 			//Create a budget and test some functionality
 			//TODO Implement all the methods so they work. It's gonna take some time.
 			FacadeOperator f = new FacadeOperator(connectionSource);
@@ -41,7 +41,7 @@ public class BaseSimulator {
 		}
 		return connectionSource;
     }
-	
+
 	public static void main(String[] args) {
 		JdbcConnectionSource connectionSource = createNewDatabase("test.db");
 		try {
@@ -52,4 +52,5 @@ public class BaseSimulator {
 		}
 	}
 
+	LaunchInterface.execute(args);
 }
