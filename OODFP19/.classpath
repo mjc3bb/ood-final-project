@@ -13,6 +13,5 @@
 	<classpathentry exported="true" kind="lib" path="javafx/javafx-swt.jar"/>
 	<classpathentry kind="lib" path="javafx/jrt-fs.jar"/>
 	<classpathentry exported="true" kind="lib" path="javafx/jfoenix-9.0.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Gages/git/ood-final-project/OODFP19/javafx/guava-23.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
