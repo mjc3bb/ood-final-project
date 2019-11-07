@@ -2,7 +2,6 @@ package facadeOperations;
 
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import com.j256.ormlite.dao.Dao;
@@ -13,15 +12,38 @@ import com.j256.ormlite.stmt.QueryBuilder;
 
 import models.Transaction;
 
-public class Additon {
+public class AdditonOperator {
 
 	private JdbcConnectionSource conn = null;
 	private Dao<Transaction,String> transactionDao = null;
-	Additon(JdbcConnectionSource con) throws SQLException{
+	public AdditonOperator(JdbcConnectionSource con) throws SQLException{
 		this.conn = con;
 		transactionDao = DaoManager.createDao(conn, Transaction.class);
 	}
 
+	public void addSingleExpense(Transaction transaction) throws SQLException {
+//		QueryBuilder<Transaction, String> queryBuilder = transactionDao.queryBuilder();
+//		queryBuilder.
+		if(transaction!=null) {
+		if(transaction.getTransaction()<0)
+		transactionDao.update(transaction);
+		else
+			System.out.println("Transaction attempting to be added is not an expense.");
+		} else {
+			System.out.println("This transaction is invalid.");
+		}
+	}
+	
+	public void addSingleIncome(Transaction transaction) throws SQLException {
+		if(transaction!=null) {
+			if(transaction.getTransaction()>0)
+			transactionDao.update(transaction);
+			else
+				System.out.println("Transaction attempting to be added is not an expense.");
+			} else {
+				System.out.println("This transaction is invalid.");
+			}
+	}
 	public String addAllExpenses() throws SQLException {
 		//QueryBuilder<Transaction , String> queryBuilder = (QueryBuilder<Transaction, String>) transactionDao.queryBuilder();
 		GenericRawResults<String[]> rawResults = transactionDao.queryRaw(

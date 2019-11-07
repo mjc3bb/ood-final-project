@@ -17,4 +17,37 @@ public class Budget {
 	
 	@DatabaseField(dataType=DataType.DATE)
 	private Date budgetStart;
+	
+	public Budget() {
+	}
+
+	public Budget(String budgetName, Date budgetStart) {
+		this.budgetName = budgetName;
+		this.budgetStart = budgetStart;
+	}
+	
+	public long getBudgetID() {
+		return budgetID;
+	}
+
+	public void setBudgetID(long budgetID) {
+		this.budgetID = budgetID;
+	}
+
+	public String getBudgetName() {
+		return budgetName;
+	}
+
+	public void setBudgetName(String budgetName) {
+		this.budgetName = budgetName;
+	}
+
+	public Date getBudgetStart() {
+		return budgetStart;
+	}
+
+	public void setBudgetStart(Date budgetStart) {
+		this.budgetStart = budgetStart;
+	}
+	
 }

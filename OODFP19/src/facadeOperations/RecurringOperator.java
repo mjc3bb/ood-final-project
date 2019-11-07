@@ -5,11 +5,11 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 
 import models.Transaction;
 
-public class Recurring_ {
+public class RecurringOperator {
 
 	private JdbcConnectionSource conn = null;
 	private Dao<Transaction,String> transactionDao = null;
-	Recurring_(JdbcConnectionSource con){
+	RecurringOperator(JdbcConnectionSource con){
 		this.conn = con;
 	}
 	

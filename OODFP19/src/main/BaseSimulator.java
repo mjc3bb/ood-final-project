@@ -3,10 +3,6 @@ package main;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.j256.ormlite.db.DatabaseType;
-import com.j256.ormlite.db.DatabaseTypeUtils;
-import com.j256.ormlite.field.DatabaseFieldConfig;
-import com.j256.ormlite.field.DatabaseFieldConfigLoader;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -32,7 +28,13 @@ public class BaseSimulator {
 			TableUtils.createTableIfNotExists(connectionSource, Budget.class);
 			TableUtils.createTableIfNotExists(connectionSource, Category.class);
 			TableUtils.createTableIfNotExists(connectionSource, Recurring.class);
+			
+			//Create a budget and test some functionality
+			//TODO Implement all the methods so they work. It's gonna take some time.
 			FacadeOperator f = new FacadeOperator(connectionSource);
+			f.createBudget();
+			f.AddExpense();
+			f.AddIncome();
 			f.ExpendituresTracking();
 		} catch (SQLException e) {
 			e.printStackTrace();

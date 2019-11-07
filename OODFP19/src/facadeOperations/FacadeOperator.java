@@ -1,6 +1,7 @@
 package facadeOperations;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
@@ -14,10 +15,10 @@ import models.Transaction;
 public class FacadeOperator {
 	//Create several objects of the things that will be used in these methods. Most likely some type of DAO will be passed to each object. 
 	//Or maybe the methods they have will require a DAO as an argument.
-	private Additon add;
-	private Budget_ budget;
-	private Category_ cat;
-	private Recurring_ recurring;
+	private AdditonOperator add;
+	private BudgetOperator budget;
+	private CategoryOperator category;
+	private RecurringOperator recurring;
 	private Transaction transaction;
 	
 	//All the methods will use this connection to work with the database.
@@ -26,10 +27,10 @@ public class FacadeOperator {
 	
 	public FacadeOperator(JdbcConnectionSource conn) throws SQLException {
 		con = conn;
-		this.add = new Additon(con);
-		this.budget = new Budget_(con);
-		this.cat = new Category_(con);
-		this.recurring = new Recurring_(con);
+		this.add = new AdditonOperator(con);
+		this.budget = new BudgetOperator(con);
+		this.category = new CategoryOperator(con);
+		this.recurring = new RecurringOperator(con);
 		this.transaction = new Transaction();
 		//Create DAOs for database tables (models)
 		Dao<Budget,String> budgetDao = DaoManager.createDao(con, Budget.class);
@@ -40,6 +41,22 @@ public class FacadeOperator {
 	
 	//Create several methods to do application operations (that's probably a good name for this class, "ApplicationOperator".
 	
+	//TODO:	Find best way to allow user to add new data to the database
+	//Add Expense
+	public void AddExpense() throws SQLException {
+		//This would be how the user would add new expenses they made
+		//Create transaction to be added
+		//TODO No idea if passing connection through will give access to original tables of database
+		transaction = new Transaction(10, new Date(), con);
+		add.addSingleExpense(transaction);
+	}
+	
+	//Add Income
+	public void AddIncome() throws SQLException {
+		//This would be how the user would add new income they obtained.
+		transaction = new Transaction(10, new Date(), con);
+		add.addSingleIncome(transaction);
+	}
 	//Expenditure tracking
 	public void ExpendituresTracking() throws SQLException {
 		//Tracks total expenditures and provides table for recurring expenditures, expenditures by month, and total expenditures
@@ -72,6 +89,7 @@ public class FacadeOperator {
 	//Create Budget
 	public void createBudget() {
 		//User can add different categories for expenses that they allocate out to a budget.
+		
 	}
 	
 	//Convert currency
