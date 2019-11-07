@@ -1,14 +1,10 @@
 package facadeOperations;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.field.DataType;
-import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.table.DatabaseTable;
 
 import models.Budget;
 import models.Category;
@@ -28,8 +24,8 @@ public class FacadeOperator {
 	private String url = "jdbc:sqlite:sqlite/db/test.db";
 	public JdbcConnectionSource con = null;
 	
-	FacadeOperator() throws SQLException {
-		con = new JdbcConnectionSource(url);
+	public FacadeOperator(JdbcConnectionSource conn) throws SQLException {
+		con = conn;
 		this.add = new Additon(con);
 		this.budget = new Budget_(con);
 		this.cat = new Category_(con);
@@ -48,12 +44,14 @@ public class FacadeOperator {
 	public void ExpendituresTracking() throws SQLException {
 		//Tracks total expenditures and provides table for recurring expenditures, expenditures by month, and total expenditures
 		//Hopefully this returns a query result
-		String expenditures = add.addAllExpenses();
+		String TotalExpenditures = add.addAllExpenses();
+		System.out.println(TotalExpenditures);
 	}
 	
 	//Income Tracking
-	public void IncomeTracking(){
+	public void IncomeTracking() throws SQLException{
 		//Tracks total income and provides table for recurring income, income by month, and total income.
+		System.out.println(add.addAllIncomes());
 	}
 	
 	//Category Addition

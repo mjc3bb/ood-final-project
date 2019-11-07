@@ -10,6 +10,7 @@ import com.j256.ormlite.field.DatabaseFieldConfigLoader;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import facadeOperations.FacadeOperator;
 import models.Budget;
 import models.Category;
 import models.Recurring;
@@ -31,7 +32,8 @@ public class BaseSimulator {
 			TableUtils.createTableIfNotExists(connectionSource, Budget.class);
 			TableUtils.createTableIfNotExists(connectionSource, Category.class);
 			TableUtils.createTableIfNotExists(connectionSource, Recurring.class);
-			
+			FacadeOperator f = new FacadeOperator(connectionSource);
+			f.ExpendituresTracking();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
