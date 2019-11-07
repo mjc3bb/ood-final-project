@@ -55,19 +55,25 @@ public class BaseController implements Initializable {
 	}
 
 	private void loadExpenses() {
-		drawerAction();		
+		drawerAction();
+		viewPane.getChildren().setAll(changeView.loadExpenses());
+		windowName.setText("Expenses");
 	}
 
 	private void loadIncome() {
 		drawerAction();		
+		viewPane.getChildren().setAll(changeView.loadAccounts());
+		windowName.setText("Accounts");
 	}
 
 	private void loadUtilities() {
 		drawerAction();
+		windowName.setText("Utilities");
 	}
 
 	private void loadManage() {
 		drawerAction();		
+		windowName.setText("Manage");
 	}
  
 	/**

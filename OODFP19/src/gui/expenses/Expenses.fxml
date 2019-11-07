@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../../assets/css/modena_dark.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.expenses.ExpensesController">
+   <children>
+      <TableView fx:id="expensesTable" layoutX="116.0" layoutY="118.0" prefHeight="490.0" prefWidth="491.0" stylesheets="@../../../assets/css/table.css">
+        <columns>
+          <TableColumn fx:id="location" prefWidth="145.71430206298828" text="Location" />
+          <TableColumn fx:id="amount" prefWidth="69.1429443359375" text="Amount" />
+            <TableColumn fx:id="date" prefWidth="85.71429443359375" text="Date" />
+            <TableColumn fx:id="account" prefWidth="108.57138061523438" text="Account" />
+            <TableColumn fx:id="recurring" prefWidth="72.5714111328125" text="Reccuring" />
+        </columns>
+      </TableView>
+      <Label fx:id="monthHeader" layoutX="517.0" layoutY="30.0" text="NOVEMBER" textFill="WHITE">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="addExpenseLabel" layoutX="845.0" layoutY="104.0" text="Add Expense" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="expenseAmount" focusColor="#40a849" layoutX="728.0" layoutY="165.0" prefHeight="25.0" prefWidth="135.0" promptText="Amount" stylesheets="@../../../assets/css/textfield.css" />
+      <JFXTextField fx:id="expenseLocation" layoutX="908.0" layoutY="165.0" promptText="Location" stylesheets="@../../../assets/css/textfield.css" />
+      <MenuButton fx:id="expenseAccount" layoutX="937.0" layoutY="218.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Account" textFill="WHITE">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <JFXDatePicker fx:id="expenseDate" defaultColor="WHITE" layoutX="728.0" layoutY="245.0" prefHeight="28.0" prefWidth="135.0" promptText="Date" stylesheets="@../../../assets/css/textfield.css" />
+      <MenuButton fx:id="expenseCategory" layoutX="935.0" layoutY="259.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Category" textFill="WHITE">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <JFXButton fx:id="submitExpense" buttonType="RAISED" layoutX="866.0" layoutY="361.0" style="-fx-background-color: #02d43a;" text="Submit" textFill="WHITE" />
+      <JFXCheckBox fx:id="reccuringCheckbox" checkedColor="#09f37e" layoutX="855.0" layoutY="307.0" text="Recurring" textFill="WHITE" unCheckedColor="#dadada" />
+      <JFXButton fx:id="changeMonth" buttonType="RAISED" layoutX="44.0" layoutY="41.0" text="Change Month" textFill="WHITE" />
+      <MenuButton fx:id="selectMonth" layoutX="157.0" layoutY="41.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Month" textFill="WHITE">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <MenuButton fx:id="selectYear" layoutX="235.0" layoutY="41.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Year" textFill="WHITE">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <Label fx:id="categoryHeader" layoutX="809.0" layoutY="425.0" text="Spending by Category" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="groceryCategory" layoutX="850.0" layoutY="475.0" text="Grocery" textFill="WHITE" />
+      <Label fx:id="transportationCategory" layoutX="815.0" layoutY="506.0" text="Transportation" textFill="WHITE" />
+      <Label fx:id="diningCategory" layoutX="835.0" layoutY="534.0" text="Dining Out" textFill="WHITE" />
+      <Label fx:id="shoppingCategory" layoutX="841.0" layoutY="561.0" text="Shopping" textFill="WHITE" />
+      <Label fx:id="utilitiesCategory" layoutX="784.0" layoutY="589.0" text="Utilities and Housing" textFill="WHITE" />
+      <Label fx:id="entertainmentCategory" layoutX="818.0" layoutY="617.0" text="Entertainment" textFill="WHITE" />
+      <Label fx:id="groceryAmount" layoutX="923.0" layoutY="475.0" text="\$$$" textFill="WHITE" />
+      <Label fx:id="transportationAmount" layoutX="923.0" layoutY="506.0" text="\$$$" textFill="WHITE" />
+      <Label fx:id="diningAmount" layoutX="923.0" layoutY="534.0" text="\$$$" textFill="WHITE" />
+      <Label fx:id="shoppingAmount" layoutX="923.0" layoutY="561.0" text="\$$$" textFill="WHITE" />
+      <Label fx:id="utilitiesAmount" layoutX="923.0" layoutY="589.0" text="\$$$" textFill="WHITE" />
+      <Label fx:id="entertainmentAmount" layoutX="923.0" layoutY="617.0" text="\$$$" textFill="WHITE" />
+   </children>
+</AnchorPane>

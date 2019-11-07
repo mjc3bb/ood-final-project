@@ -20,9 +20,9 @@ public class DoughnutChart extends PieChart {
 
 	public DoughnutChart(ObservableList<Object> observableArrayList) {
 		innerCircle = new Circle();
-		 innerCircle.setFill(Color.WHITESMOKE);
+		 innerCircle.setFill(Color.valueOf("#343a41"));
 	     innerCircle.setStroke(Color.WHITE);
-	     innerCircle.setStrokeWidth(3);
+	     innerCircle.setStrokeWidth(2);
 	     this.setLegendVisible(false);
 	          
 	}
@@ -72,7 +72,7 @@ public class DoughnutChart extends PieChart {
         innerCircle.setCenterX(minX + (maxX - minX) / 2);
         innerCircle.setCenterY(minY + (maxY - minY) / 2);
 
-        innerCircle.setRadius((maxX - minX) / 4);
+        innerCircle.setRadius((maxX - minX) / 2.7);
     }
 	    
 }
