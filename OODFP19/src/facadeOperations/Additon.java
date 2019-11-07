@@ -1,6 +1,7 @@
 package facadeOperations;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -43,25 +44,25 @@ public class Additon {
 		return resultArray[0];
 	}
 	
-	public String addAllIncomesByDate(Date date) throws SQLException {
+	public String addAllIncomesByDate(Calendar date) throws SQLException {
 		//How do we make sure that the date is read in the correct format in the query?
-		String d = date.toString();
+		String yyyy_mm_dd = "'"+String.valueOf(date.YEAR)+"-"+String.valueOf(date.MONTH)+"-"+String.valueOf(date.DATE)+"'";
 		GenericRawResults<String[]> rawResults = transactionDao.queryRaw(
 				"select sum(t.transaction) as 'Total of Transactions' "
 				+ "from transaction t "
-				+ "where exists(t.transaction>0) and t.transactionDate=" + d);
+				+ "where exists(t.transaction>0) and t.transactionDate=" + yyyy_mm_dd);
 		List<String[]> results = rawResults.getResults();
 		String[] resultArray = results.get(0);
 		return resultArray[0];
 	}
 
-	public String addAllExpensesByDate(Date date) throws SQLException {
+	public String addAllExpensesByDate(Calendar date) throws SQLException {
 		//How do we make sure that the date is read in the correct format in the query?
-				String d = date.toString();
+		String yyyy_mm_dd = String.valueOf(date.YEAR)+"-"+String.valueOf(date.MONTH)+"-"+String.valueOf(date.DATE);
 				GenericRawResults<String[]> rawResults = transactionDao.queryRaw(
 						"select sum(t.transaction) as 'Total of Transactions' "
 						+ "from transaction t "
-						+ "where exists(t.transaction<0) and t.transactionDate=" + d);
+						+ "where exists(t.transaction<0) and t.transactionDate=" + yyyy_mm_dd);
 				List<String[]> results = rawResults.getResults();
 				String[] resultArray = results.get(0);
 				return resultArray[0];
