@@ -1,6 +1,7 @@
 package facadeOperations;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.j256.ormlite.dao.Dao;
@@ -22,25 +23,47 @@ public class Additon {
 	
 	public String addAllExpenses() throws SQLException {
 		//QueryBuilder<Transaction , String> queryBuilder = (QueryBuilder<Transaction, String>) transactionDao.queryBuilder();
-		GenericRawResults<String[]> rawResults = transactionDao.queryRaw("select sum(t.transaction) as 'Total of Transactions' from transaction t");
+		GenericRawResults<String[]> rawResults = transactionDao.queryRaw(
+				"select sum(t.transaction) as 'Total of Transactions' "
+				+ "from transaction t"
+				+ "where exists(t.transaction<0)");
 		List<String[]> results = rawResults.getResults();
 		String[] resultArray = results.get(0);
 		//int sum = Integer.parseInt(resultArray[0]);
 		return resultArray[0];
 	}
 	
-	public int addAllIncomes() {
-		
-		return -1;
+	public String addAllIncomes() throws SQLException {
+		GenericRawResults<String[]> rawResults = transactionDao.queryRaw(
+				"select sum(t.transaction) as 'Total of Transactions' "
+				+ "from transaction t "
+				+ "where exists(t.transaction>0)");
+		List<String[]> results = rawResults.getResults();
+		String[] resultArray = results.get(0);
+		return resultArray[0];
 	}
 	
-	public int addAllIncomesByDate() {
-		
-		return -1;
+	public String addAllIncomesByDate(Date date) throws SQLException {
+		//How do we make sure that the date is read in the correct format in the query?
+		String d = date.toString();
+		GenericRawResults<String[]> rawResults = transactionDao.queryRaw(
+				"select sum(t.transaction) as 'Total of Transactions' "
+				+ "from transaction t "
+				+ "where exists(t.transaction>0) and t.transactionDate=" + d);
+		List<String[]> results = rawResults.getResults();
+		String[] resultArray = results.get(0);
+		return resultArray[0];
 	}
 
-	public int addAllExpensesByDate() {
-	
-		return -1;
+	public String addAllExpensesByDate(Date date) throws SQLException {
+		//How do we make sure that the date is read in the correct format in the query?
+				String d = date.toString();
+				GenericRawResults<String[]> rawResults = transactionDao.queryRaw(
+						"select sum(t.transaction) as 'Total of Transactions' "
+						+ "from transaction t "
+						+ "where exists(t.transaction<0) and t.transactionDate=" + d);
+				List<String[]> results = rawResults.getResults();
+				String[] resultArray = results.get(0);
+				return resultArray[0];
 	}
 }
