@@ -8,36 +8,48 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="sideDrawer" maxHeight="600.0" maxWidth="170.0" minHeight="600.0" minWidth="170.0" prefHeight="600.0" prefWidth="170.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.draweritems.DrawerController">
+<VBox fx:id="sideDrawer" maxHeight="700.0" maxWidth="170.0" minHeight="700.0" minWidth="170.0" prefHeight="700.0" prefWidth="170.0" style="-fx-background-color: #2b2b2b;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.draweritems.DrawerController">
    <children>
-      <AnchorPane prefHeight="124.0" prefWidth="169.0">
+      <AnchorPane prefHeight="154.0" prefWidth="170.0">
          <children>
-            <Label fx:id="welcomeLabel" layoutX="5.0" layoutY="15.0" text="Welcome," AnchorPane.bottomAnchor="80.6" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="98.6" AnchorPane.topAnchor="15.0">
+            <Label fx:id="welcomeLabel" layoutX="10.0" layoutY="9.0" prefHeight="28.0" prefWidth="75.0" text=" " AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="9.0">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="backButton" accessibleText="backButton" layoutX="130.0" layoutY="4.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="32.0" AnchorPane.bottomAnchor="82.8" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="7.199999999999989" AnchorPane.topAnchor="4.0">
-               <graphic>
-                  <ImageView fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../assets/images/drawer_backaction.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="nameLabel" layoutX="5.0" layoutY="34.0" text="UserName!" AnchorPane.bottomAnchor="54.8" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="70.6" AnchorPane.topAnchor="34.0">
+            <Label text=" " />
+            <Label fx:id="nameLabel" layoutX="46.0" layoutY="89.0" prefHeight="35.0" prefWidth="81.0" text="Freedom" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="89.0">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
+            <ImageView fitHeight="73.0" fitWidth="89.0" layoutX="50.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/images/user_logo.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="overviewButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Overview" />
-      <Button fx:id="expensesButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Expenses" />
-      <Button fx:id="incomeButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Income" />
-      <Button fx:id="utilitiesButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Utilities" />
-      <Button fx:id="manageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" text="Manage" />
+      <Button fx:id="overviewButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #3b3b3b;" text="Overview" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button fx:id="expensesButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #3b3b3b;" text="Expenses" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button fx:id="incomeButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #3b3b3b;" text="Accounts &amp; Income" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button fx:id="utilitiesButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #3b3b3b;" text="Utilities" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button fx:id="manageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #3b3b3b;" text="Manage" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
       <AnchorPane prefHeight="151.0" prefWidth="169.0" />
    </children>
 </VBox>
