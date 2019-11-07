@@ -19,9 +19,6 @@ public class Transaction {
 	
 	@DatabaseField(dataType=DataType.DATE)
 	private Date transactionDate;
-		
-	@DatabaseField(foreign = true)
-	private Budget budget;
 	
 	@DatabaseField(foreign = true)
 	private Category category;
@@ -36,7 +33,6 @@ public class Transaction {
 			Recurring recurring) {
 		this.transaction = transaction;
 		this.transactionDate = transactionDate;
-		this.budget = budget;
 		this.category = category;
 		this.recurring = recurring;
 	}
@@ -44,7 +40,6 @@ public class Transaction {
 	public Transaction(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
 		this.transaction = transaction;
 		this.transactionDate = transactionDate;
-		this.budget = (Budget) connection.getReadOnlyConnection("budget");
 		this.category = (Category) connection.getReadOnlyConnection("category");
 		this.recurring = (Recurring) connection.getReadOnlyConnection("recurring");
 	}
@@ -71,14 +66,6 @@ public class Transaction {
 
 	public void setTransactionDate(Date transactionDate) {
 		this.transactionDate = transactionDate;
-	}
-
-	public Budget getBudget() {
-		return budget;
-	}
-
-	public void setBudget(Budget budget) {
-		this.budget = budget;
 	}
 
 	public Category getCategory() {
