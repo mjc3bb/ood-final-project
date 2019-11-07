@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.accounts.AccountsController">
+   <children>
+      <MenuButton fx:id="selectAccountActivity" layoutX="855.0" layoutY="113.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Select Account" textFill="WHITE">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <TableView fx:id="activityTable" layoutX="681.0" layoutY="166.0" prefHeight="435.0" prefWidth="458.0" stylesheets="@../../../assets/css/table.css">
+        <columns>
+          <TableColumn fx:id="date" prefWidth="89.142822265625" text="Date" />
+            <TableColumn fx:id="location" prefWidth="160.0" text="Location" />
+            <TableColumn fx:id="typeActivity" prefWidth="76.0" text="Type" />
+          <TableColumn fx:id="amount" prefWidth="132.57159423828125" text="Amount" />
+        </columns>
+      </TableView>
+      <Label fx:id="accountActivity" layoutX="849.0" layoutY="77.0" text="Account Activity" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="accountsHeader" layoutX="41.0" layoutY="34.0" text="Accounts &amp; Income" textFill="WHITE">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <TableView fx:id="accountsTable" layoutX="88.0" layoutY="157.0" prefHeight="264.0" prefWidth="458.0" stylesheets="@../../../assets/css/table.css">
+        <columns>
+          <TableColumn fx:id="name" prefWidth="216.00000762939453" text="Name" />
+          <TableColumn fx:id="type" minWidth="0.57147216796875" prefWidth="108.0" text="Type" />
+            <TableColumn fx:id="balance" prefWidth="134.85708618164062" text="Balance" />
+        </columns>
+      </TableView>
+      <Label fx:id="createNewAccountHeader" layoutX="88.0" layoutY="479.0" text="Create New Account" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="createAccountName" layoutX="88.0" layoutY="522.0" promptText="Name" stylesheets="@../../../assets/css/textfield.css" />
+      <MenuButton fx:id="createAccountType" layoutX="88.0" layoutY="610.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Account Type" textFill="WHITE">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Checking" />
+          <MenuItem mnemonicParsing="false" text="Savings" />
+            <MenuItem mnemonicParsing="false" text="Credit" />
+        </items>
+      </MenuButton>
+      <JFXTextField fx:id="createAccountBalance" layoutX="88.0" layoutY="561.0" stylesheets="@../../../assets/css/textfield.css" text="Current Balance" />
+      <JFXButton fx:id="createSubmit" buttonType="RAISED" layoutX="223.0" layoutY="610.0" style="-fx-background-color: #02d43a;" text="Create" textFill="WHITE" />
+      <Label fx:id="addIncome" layoutX="411.0" layoutY="479.0" text="Add Income" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <MenuButton fx:id="addIncomeSelectAcount" layoutX="411.0" layoutY="573.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Account" textFill="WHITE">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <JFXTextField fx:id="addIncomeAmount" layoutX="411.0" layoutY="522.0" promptText="Amount" stylesheets="@../../../assets/css/textfield.css" />
+      <JFXButton fx:id="addSubmit" layoutX="507.0" layoutY="573.0" style="-fx-background-color: #02d43a;" text="Add" textFill="WHITE" />
+   </children>
+</AnchorPane>
