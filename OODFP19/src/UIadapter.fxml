@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ExchangeController">
+   <children>
+      <AnchorPane layoutX="-106.0" layoutY="-100.0" prefHeight="700.0" prefWidth="1200.0">
+         <children>
+            <Label fx:id="inputLabel" layoutX="452.0" layoutY="139.0" text="Input US Dollar Amount">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Label>
+            <TextField id="txtDollar" fx:id="currencyInput" layoutX="571.0" layoutY="203.0" />
+            <Label fx:id="conversionTypeLabel" layoutX="359.0" layoutY="230.0" prefHeight="38.0" prefWidth="612.0" text="Select Currency for Conversion" textAlignment="CENTER">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Label>
+            <TextField id="txtConvertAns" fx:id="resultBox" layoutX="570.0" layoutY="411.0" />
+            <Button fx:id="Euros" layoutX="452.0" layoutY="324.0" mnemonicParsing="false" onAction="#euros" text="Euros" />
+            <Button fx:id="Pounds" layoutX="571.0" layoutY="324.0" mnemonicParsing="false" onAction="#pounds" text="Pounds" />
+            <Button fx:id="Peso" layoutX="694.0" layoutY="324.0" mnemonicParsing="false" onAction="#peso" text="Peso" />
+            <Button fx:id="Yen" layoutX="820.0" layoutY="324.0" mnemonicParsing="false" onAction="#yen" onInputMethodTextChanged="#yen" text="Yen" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
