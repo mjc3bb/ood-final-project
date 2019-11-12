@@ -1,9 +1,12 @@
 package models;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="category")
@@ -62,4 +65,19 @@ public class Category {
 		this.budget = budget;
 	}
 	
+	public ArrayList<Object> getAllAttributes(){
+		ArrayList<Object> obj = new ArrayList<Object>();
+		obj.add(budget);
+		obj.add(categoryName);
+		obj.add(categoryStartDate);
+		obj.add(categoryID);
+		return obj;
+	}
+	
+	//TODO How do we fit the categoryID in to this?
+	public void setAllAttributes(String categoryName, Date categoryStartDate, JdbcConnectionSource connection) throws SQLException {
+		this.categoryName = categoryName;
+		this.categoryStartDate = categoryStartDate;
+		this.budget = (Budget) connection.getReadWriteConnection("budget");
+	}
 }

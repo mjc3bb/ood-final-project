@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.j256.ormlite.field.DataType;
@@ -50,4 +51,17 @@ public class Budget {
 		this.budgetStart = budgetStart;
 	}
 	
+	public ArrayList<Object> getAllAttributes() {
+		ArrayList<Object> obj = new ArrayList<Object>();
+		obj.add(budgetName);
+		obj.add(budgetStart);
+		obj.add(budgetID);
+		return obj;
+	}
+	
+	//TODO Can we fit the ID into this?
+	public void setAllAttributes(String budgetName, Date budgetStart) {
+		this.budgetName = budgetName;
+		this.budgetStart = budgetStart;
+	}
 }

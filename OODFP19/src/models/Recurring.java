@@ -1,8 +1,11 @@
 package models;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="recurring")
@@ -14,8 +17,12 @@ public class Recurring {
 	@DatabaseField(dataType=DataType.STRING_BYTES)
 	private String recurringName;
 	
-	@DatabaseField(dataType=DataType.LONG)
-	private long categoryID;
+	
+	@DatabaseField(foreign=true)
+	private Category categoryID;
+	
+//	@DatabaseField(dataType=DataType.LONG)
+//	private long categoryID;
 	
 	//The day first recurring transaction occurs
 	@DatabaseField(dataType=DataType.DATE)
@@ -29,7 +36,7 @@ public class Recurring {
 	public Recurring() {
 	}
 
-	public Recurring(String recurringName, long categoryID, Date recurringStartDate,
+	public Recurring(String recurringName, Category categoryID, Date recurringStartDate,
 			int daysTillRepeat) {
 		this.recurringName = recurringName;
 		this.categoryID = categoryID;
@@ -53,11 +60,11 @@ public class Recurring {
 		this.recurringName = recurringName;
 	}
 
-	public long getCategoryID() {
+	public Category getCategoryID() {
 		return categoryID;
 	}
 
-	public void setCategoryID(long categoryID) {
+	public void setCategoryID(Category categoryID) {
 		this.categoryID = categoryID;
 	}
 
@@ -74,6 +81,25 @@ public class Recurring {
 	}
 
 	public void setDaysTillRepeat(int daysTillRepeat) {
+		this.daysTillRepeat = daysTillRepeat;
+	}
+	
+	public ArrayList<Object> getAllAttributes(){
+		ArrayList<Object> obj = new ArrayList<Object>();
+		obj.add(recurringID);
+		obj.add(recurringName);
+		obj.add(categoryID);
+		obj.add(recurringStartDate);
+		obj.add(daysTillRepeat);
+		return obj;
+	}
+	
+	//TODO How do we include the recurringID here?
+	public void setAllAttributes(String recurringName, JdbcConnectionSource connection, Date recurringStartDate,
+			int daysTillRepeat) throws SQLException {
+		this.recurringName = recurringName;
+		this.categoryID = (Category) connection.getReadWriteConnection("category");
+		this.recurringStartDate = recurringStartDate;
 		this.daysTillRepeat = daysTillRepeat;
 	}
 	
