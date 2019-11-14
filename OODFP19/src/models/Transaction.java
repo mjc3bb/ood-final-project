@@ -9,35 +9,43 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 
+//TODO: Is this a table that holds all transactions or is each transaction independnet
 @DatabaseTable(tableName="transaction")
 public class Transaction {
-	
+
 	@DatabaseField(generatedId=true)
 	private long entryID;
-	
+
 	@DatabaseField(dataType=DataType.INTEGER)
 	private int transaction;
-	
+
 	@DatabaseField(dataType=DataType.DATE)
 	private Date transactionDate;
-		
+
+	//TODO References the account the transaction is attached to
 	@DatabaseField(foreign = true)
-	private Budget budget;
-	
+	private Account account;
+
+	//TODO Remove Category Table
 	@DatabaseField(foreign = true)
-	private Category category;
-	
+	private Category category;	//Make this a String which is controlled by the application. 
+
+	//TODO Make this a boolean to tell if it is True or false
 	@DatabaseField(foreign = true, canBeNull=true)
 	private Recurring recurring;	
-	
+
+	//TODO: Add Attribute to show negative or positive value. Should be a boolean.
+	@DatabaseField(dataType=DataType.BOOLEAN)
+	private boolean negative;
+
 	public Transaction() {
 	}
 
-	public Transaction(int transaction, Date transactionDate, Budget budget, Category category,
+	public Transaction(int transaction, Date transactionDate, Account account, Category category,
 			Recurring recurring) {
 		this.transaction = transaction;
 		this.transactionDate = transactionDate;
-		this.budget = budget;
+		this.account = account;
 		this.category = category;
 		this.recurring = recurring;
 	}
@@ -45,7 +53,7 @@ public class Transaction {
 	public Transaction(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
 		this.transaction = transaction;
 		this.transactionDate = transactionDate;
-		this.budget = (Budget) connection.getReadOnlyConnection("budget");
+		this.account = (Account) connection.getReadOnlyConnection("budget");
 		this.category = (Category) connection.getReadOnlyConnection("category");
 		this.recurring = (Recurring) connection.getReadOnlyConnection("recurring");
 	}
@@ -74,12 +82,12 @@ public class Transaction {
 		this.transactionDate = transactionDate;
 	}
 
-	public Budget getBudget() {
-		return budget;
+	public Account getBudget() {
+		return account;
 	}
 
-	public void setBudget(Budget budget) {
-		this.budget = budget;
+	public void setBudget(Account account) {
+		this.account = account;
 	}
 
 	public Category getCategory() {
@@ -97,22 +105,30 @@ public class Transaction {
 	public void setRecurring(Recurring recurring) {
 		this.recurring = recurring;
 	}
-	
+
+	public boolean isNegative() {
+		return negative;
+	}
+
+	public void setNegative(boolean negative) {
+		this.negative = negative;
+	}
+
 	public ArrayList<Object> getAllAttributes(){
 		ArrayList<Object> obj = new ArrayList<Object>();
 		obj.add(entryID);
 		obj.add(transaction);
-		obj.add(budget);
+		obj.add(account);
 		obj.add(category);
 		obj.add(recurring);
 		obj.add(transactionDate);
 		return obj;
 	}
-	
+
 	public void setAllAttributes(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
 		this.transaction = transaction;
 		this.transactionDate = transactionDate;
-		this.budget = (Budget) connection.getReadWriteConnection("budget");
+		this.account = (Account) connection.getReadWriteConnection("budget");
 		this.category = (Category) connection.getReadWriteConnection("category");
 		this.recurring = (Recurring) connection.getReadWriteConnection("recurring");
 	}

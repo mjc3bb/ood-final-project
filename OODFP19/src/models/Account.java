@@ -7,61 +7,62 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName="budget")
-public class Budget {
+//TODO For now will not actually function as account, but rather just track spending in different categories.
+@DatabaseTable(tableName="account")
+public class Account {
 	
 	@DatabaseField(generatedId=true)
-	private long budgetID;
+	private long accountID;
 	
 	@DatabaseField(dataType=DataType.STRING_BYTES)
-	private String budgetName;
+	private String accountName;
 	
 	@DatabaseField(dataType=DataType.DATE)
-	private Date budgetStart;
+	private Date accountStart;
 	
-	public Budget() {
+	public Account() {
 	}
 
-	public Budget(String budgetName, Date budgetStart) {
-		this.budgetName = budgetName;
-		this.budgetStart = budgetStart;
+	public Account(String accountName, Date accountStart) {
+		this.accountName = accountName;
+		this.accountStart = accountStart;
 	}
 	
-	public long getBudgetID() {
-		return budgetID;
+	public long getAccountID() {
+		return accountID;
 	}
 
-	public void setBudgetID(long budgetID) {
-		this.budgetID = budgetID;
+	public void setAccountID(long accountID) {
+		this.accountID = accountID;
 	}
 
-	public String getBudgetName() {
-		return budgetName;
+	public String getAccountName() {
+		return accountName;
 	}
 
-	public void setBudgetName(String budgetName) {
-		this.budgetName = budgetName;
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
-	public Date getBudgetStart() {
-		return budgetStart;
+	public Date getAccountStart() {
+		return accountStart;
 	}
 
-	public void setBudgetStart(Date budgetStart) {
-		this.budgetStart = budgetStart;
+	public void setAccountStart(Date accountStart) {
+		this.accountStart = accountStart;
 	}
 	
 	public ArrayList<Object> getAllAttributes() {
 		ArrayList<Object> obj = new ArrayList<Object>();
-		obj.add(budgetName);
-		obj.add(budgetStart);
-		obj.add(budgetID);
+		obj.add(accountName);
+		obj.add(accountStart);
+		obj.add(accountID);
 		return obj;
 	}
 	
 	//TODO Can we fit the ID into this?
-	public void setAllAttributes(String budgetName, Date budgetStart) {
-		this.budgetName = budgetName;
-		this.budgetStart = budgetStart;
+	public void setAllAttributes(String accountName, Date accountStart) {
+		this.accountName = accountName;
+		this.accountStart = accountStart;
 	}
 }

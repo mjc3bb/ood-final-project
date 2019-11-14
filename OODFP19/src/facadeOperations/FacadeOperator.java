@@ -7,7 +7,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 
-import models.Budget;
+import models.Account;
 import models.Category;
 import models.Recurring;
 import models.Transaction;
@@ -15,6 +15,8 @@ import models.Transaction;
 public class FacadeOperator {
 	//Create several objects of the things that will be used in these methods. Most likely some type of DAO will be passed to each object. 
 	//Or maybe the methods they have will require a DAO as an argument.
+	
+	//TODO: Create SelectQueryOperator and UpdateQueryOperator to condense the operator classes below.
 	private AdditonOperator add;
 	private BudgetOperator budget;
 	private CategoryOperator category;
@@ -33,7 +35,7 @@ public class FacadeOperator {
 		this.recurring = new RecurringOperator(con);
 		this.transaction = new Transaction();
 		//Create DAOs for database tables (models)
-		Dao<Budget,String> budgetDao = DaoManager.createDao(con, Budget.class);
+		Dao<Account,String> accountDao = DaoManager.createDao(con, Account.class);
 		Dao<Category, String> categoryDao = DaoManager.createDao(con, Category.class);
 		Dao<Recurring, String> recurringDao = DaoManager.createDao(con, Recurring.class);
 		Dao<Transaction,String> transactionDao = DaoManager.createDao(con, Transaction.class);
@@ -42,6 +44,7 @@ public class FacadeOperator {
 	//Create several methods to do application operations (that's probably a good name for this class, "ApplicationOperator".
 	
 	//TODO:	Find best way to allow user to add new data to the database
+	//TODO: Combine AddExpense and AddIncome into AddTransaction.
 	//Add Expense
 	public void AddExpense() throws SQLException {
 		//This would be how the user would add new expenses they made
@@ -82,37 +85,43 @@ public class FacadeOperator {
 	}
 	
 	//Add Recurring income
+	//TODO Not Needed. This will be seen in addIncome and addExpense method
 	public void recurringIncome() {
 		//Add new recurring income like from a job
 	}
 	
-	//Create Budget
+	//Create Budget.
+	//TODO Creating an Account that tracks a separate set of transactions.
 	public void createBudget() {
 		//User can add different categories for expenses that they allocate out to a budget.
 		
 	}
 	
 	//Convert currency
+	//TODO Take this out. It's already done
 	public void convertCurrency() {
 		//Could make user select the currency here or could be passed through as argument.
 	}
 	
 	//Edit budget
+	//TODO Change to literally just removing an account
 	public void editBudget() {
-		//Allows user to add or remove categories from their budget and reallocate their money
 	}
 	
 	//Compare actual spending versus budget
+	//TODO Won't be necessary since we are treating budgets as accounts
 	public void compare() {
 		//This will pull data from each category type of spending and compare it to your assigned budget
 	}
 	
 	//Look at specific categorical spending
+	//TODO Returns the sum of transactions spent in a certain category.
 	public void viewCategory() {
 		//returns the total amount spent in a category and optionally shows what was spent in the category you chose area
 	}
 	
 	//Remove entry
+	//TODO Worry about later. This is more of an admin thing. The user wouldn't be able to do this.
 	public void removeEntry() {
 		//Removes some type of entry to your balance. Say you made a return on an item, or some type of income was an accident.
 		//This may not be needed at all really. This could just be seen in the changing expenses.

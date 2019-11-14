@@ -8,6 +8,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 
+//TODO Remove this table and just make it a boolean in Transaction
 @DatabaseTable(tableName="recurring")
 public class Recurring {
 

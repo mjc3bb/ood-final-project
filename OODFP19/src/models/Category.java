@@ -9,6 +9,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 
+//TODO Get rid of and make it an attribute in the Transaction Table
 @DatabaseTable(tableName="category")
 public class Category {
 
@@ -22,15 +23,15 @@ public class Category {
 	private Date categoryStartDate;
 	
 	@DatabaseField(foreign = true)
-	private Budget budget;
+	private Account account;
 	
 	public Category(){
 	}
 
-	public Category(String categoryName, Date categoryStartDate, Budget budget) {
+	public Category(String categoryName, Date categoryStartDate, Account account) {
 		this.categoryName = categoryName;
 		this.categoryStartDate = categoryStartDate;
-		this.budget = budget;
+		this.account = account;
 	}
 
 	public long getCategoryID() {
@@ -57,17 +58,17 @@ public class Category {
 		this.categoryStartDate = categoryStartDate;
 	}
 
-	public Budget getBudget() {
-		return budget;
+	public Account getBudget() {
+		return account;
 	}
 
-	public void setBudget(Budget budget) {
-		this.budget = budget;
+	public void setBudget(Account account) {
+		this.account = account;
 	}
 	
 	public ArrayList<Object> getAllAttributes(){
 		ArrayList<Object> obj = new ArrayList<Object>();
-		obj.add(budget);
+		obj.add(account);
 		obj.add(categoryName);
 		obj.add(categoryStartDate);
 		obj.add(categoryID);
@@ -78,6 +79,6 @@ public class Category {
 	public void setAllAttributes(String categoryName, Date categoryStartDate, JdbcConnectionSource connection) throws SQLException {
 		this.categoryName = categoryName;
 		this.categoryStartDate = categoryStartDate;
-		this.budget = (Budget) connection.getReadWriteConnection("budget");
+		this.account = (Account) connection.getReadWriteConnection("budget");
 	}
 }
