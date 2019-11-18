@@ -19,44 +19,49 @@ public class Transaction {
 	@DatabaseField(dataType=DataType.INTEGER)
 	private int transaction;
 
+	//The Application reads it as YYYY-MM-DD
 	@DatabaseField(dataType=DataType.DATE)
 	private Date transactionDate;
 
-	//TODO References the account the transaction is attached to
+	//Location of the transaction as a String
+	@DatabaseField(dataType=DataType.STRING_BYTES)
+	private String location;
+	
+	//References the account the transaction is attached to
 	@DatabaseField(foreign = true)
 	private Account account;
 
-	//TODO Remove Category Table
-	@DatabaseField(foreign = true)
-	private Category category;	//Make this a String which is controlled by the application. 
+	@DatabaseField(dataType=DataType.STRING_BYTES)
+	private String category; 
 
-	//TODO Make this a boolean to tell if it is True or false
-	@DatabaseField(foreign = true, canBeNull=true)
-	private Recurring recurring;	
+	//Boolean that determines whether a transaction is recurring or not
+	@DatabaseField(dataType=DataType.BOOLEAN)
+	private boolean recurring;	
 
-	//TODO: Add Attribute to show negative or positive value. Should be a boolean.
+	//Shows whether the transaction is negative or not
 	@DatabaseField(dataType=DataType.BOOLEAN)
 	private boolean negative;
 
 	public Transaction() {
 	}
 
-	public Transaction(int transaction, Date transactionDate, Account account, Category category,
-			Recurring recurring) {
+	public Transaction(int transaction, Date transactionDate, String location, Account account, String category,
+			boolean recurring) {
 		this.transaction = transaction;
 		this.transactionDate = transactionDate;
+		this.location = location;
 		this.account = account;
 		this.category = category;
 		this.recurring = recurring;
 	}
 	//TODO Have no idea if this actually works. Will passing connection give access to that database, or should an object of each thing be sent through the main?
-	public Transaction(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
-		this.transaction = transaction;
-		this.transactionDate = transactionDate;
-		this.account = (Account) connection.getReadOnlyConnection("budget");
-		this.category = (Category) connection.getReadOnlyConnection("category");
-		this.recurring = (Recurring) connection.getReadOnlyConnection("recurring");
-	}
+//	public Transaction(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
+//		this.transaction = transaction;
+//		this.transactionDate = transactionDate;
+//		this.account = (Account) connection.getReadOnlyConnection("budget");
+//		this.category = connection.getReadOnlyConnection("category");
+//		this.recurring = connection("recurring");
+//	}
 
 	public long getEntryID() {
 		return entryID;
@@ -82,6 +87,14 @@ public class Transaction {
 		this.transactionDate = transactionDate;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public Account getBudget() {
 		return account;
 	}
@@ -90,19 +103,19 @@ public class Transaction {
 		this.account = account;
 	}
 
-	public Category getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	public Recurring getRecurring() {
+	public boolean getRecurring() {
 		return recurring;
 	}
 
-	public void setRecurring(Recurring recurring) {
+	public void setRecurring(boolean recurring) {
 		this.recurring = recurring;
 	}
 
@@ -122,14 +135,15 @@ public class Transaction {
 		obj.add(category);
 		obj.add(recurring);
 		obj.add(transactionDate);
+		obj.add(location);
 		return obj;
 	}
 
-	public void setAllAttributes(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
-		this.transaction = transaction;
-		this.transactionDate = transactionDate;
-		this.account = (Account) connection.getReadWriteConnection("budget");
-		this.category = (Category) connection.getReadWriteConnection("category");
-		this.recurring = (Recurring) connection.getReadWriteConnection("recurring");
-	}
+//	public void setAllAttributes(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
+//		this.transaction = transaction;
+//		this.transactionDate = transactionDate;
+//		this.account = (Account) connection.getReadWriteConnection("budget");
+//		this.category = (Category) connection.getReadWriteConnection("category");
+//		this.recurring = (Recurring) connection.getReadWriteConnection("recurring");
+//	}
 }

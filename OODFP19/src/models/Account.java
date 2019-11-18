@@ -7,7 +7,6 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-//TODO For now will not actually function as account, but rather just track spending in different categories.
 @DatabaseTable(tableName="account")
 public class Account {
 	
@@ -19,6 +18,10 @@ public class Account {
 	
 	@DatabaseField(dataType=DataType.DATE)
 	private Date accountStart;
+	
+//	May just have to implement this with queries. Trick the application in to thinking there is an attribute for currentBalance.
+	@DatabaseField(dataType=DataType.INTEGER)
+	private int currentBalance;
 	
 	public Account() {
 	}
@@ -46,6 +49,14 @@ public class Account {
 
 	public Date getAccountStart() {
 		return accountStart;
+	}
+
+	public int getCurrentBalance() {
+		return currentBalance;
+	}
+
+	public void setCurrentBalance(int currentBalance) {
+		this.currentBalance = currentBalance;
 	}
 
 	public void setAccountStart(Date accountStart) {

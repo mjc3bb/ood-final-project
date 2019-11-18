@@ -12,6 +12,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
 
 import models.Transaction;
 
+//TODO This class will not be used for application,
+//BUT it is being used for REFERENCE for building the Select and Update QueryOperators.
 public class AdditonOperator {
 
 	private JdbcConnectionSource conn = null;
