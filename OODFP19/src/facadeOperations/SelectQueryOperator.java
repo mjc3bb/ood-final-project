@@ -15,7 +15,7 @@ import models.Transaction;
 public class SelectQueryOperator {
 	private JdbcConnectionSource conn = null;
 	private Dao<Transaction,String> transactionDao = null;
-	Dao<Account,String> accountDao = null;
+	private Dao<Account,String> accountDao = null;
 	
 	public SelectQueryOperator(JdbcConnectionSource con) throws SQLException{
 		this.conn = con;

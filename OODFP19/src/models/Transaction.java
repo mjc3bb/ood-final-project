@@ -95,11 +95,11 @@ public class Transaction {
 		this.location = location;
 	}
 
-	public Account getBudget() {
+	public Account getAccount() {
 		return account;
 	}
 
-	public void setBudget(Account account) {
+	public void setAccount(Account account) {
 		this.account = account;
 	}
 
