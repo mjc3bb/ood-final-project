@@ -79,19 +79,20 @@ public class FacadeOperator {
 	}
 
 	//Returns all expenses for a particular month
-	public int returnSpendingByMonth(String MM) {
-		return select.expenseByMonth(MM);
+	public int returnSpendingByMonth(String MM, String accountName) throws ParseException, SQLException {
+		return select.expenseByMonth(MM, accountName);
 	}
 
 	//Returns the sum of transactions spent in a certain category from certain dates.
-	public int returnSpendingInCategoryByMonth(String MM, String categoryName) {
+	public int returnSpendingInCategoryByMonth(String MM, String categoryName, String accountName) throws ParseException, SQLException {
+		// TODO: Add accountName as argument
 		return select.expenseByCategoryByMonth(MM, categoryName);
 	}
 
 	//Returns an array list of expense objects that contain the attributes dealing with that expense
-	public ArrayList<Object> returnExpenseObjects(String MM){
+	public ArrayList<Object> returnExpenseObjects(String MM, String accountName) throws SQLException, ParseException{
 		//Make sure whatever the month is it can be understood by SQLite
-		return select.returnExpenseObjectsByMonth(MM);
+		return select.returnExpenseObjectsByMonth(MM, accountName);
 	}
 
 	//Returns array list of account objects that contain the attributes of an account
