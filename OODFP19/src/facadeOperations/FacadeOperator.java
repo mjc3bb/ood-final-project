@@ -1,6 +1,7 @@
 package facadeOperations;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -41,18 +42,18 @@ public class FacadeOperator {
 	//TODO: Make sure to include instantiation of transaction object
 
 	//TODO BELONGS TO: UpdateQueryOperator Class
-	public void addTransaction(int amount, String dateOfTransaction, String location, String accountName, String category, boolean recurring) throws SQLException {
+	public void addTransaction(int amount, String dateOfTransaction, String location, String accountName, String category, boolean recurring) throws SQLException, ParseException {
 		//TODO Put this functionality in the UpdateQueryOperator
 		update.addTransaction(amount, dateOfTransaction, location, accountName, category, recurring);
 		update.updateBalance(accountName);
 	}
 
-	public void addIncome(String accountName, int amount) {
+	public void addIncome(String accountName, int amount) throws SQLException {
 		update.addIncome(accountName, amount);
 		update.updateBalance(accountName);
 	}
 
-	public void addExpense(int amount, String location, String date, String accountName, String category, boolean recurring) {
+	public void addExpense(int amount, String location, String date, String accountName, String category, boolean recurring) throws SQLException, ParseException {
 		update.addTransaction(amount, date, location, accountName, category, recurring);
 		update.updateBalance(accountName);
 	}
