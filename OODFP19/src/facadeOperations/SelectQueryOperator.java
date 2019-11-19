@@ -61,24 +61,29 @@ public class SelectQueryOperator {
 		
 		long sum = transactionDao.queryRawValue("select sum(t.transaction) from transaction t, account a where a.accountName=\"" + accountName +"\" and exists(t.transaction>0)");
 		
-		//List<Transaction> transactionsList = transactionDao.queryBuilder().where().gt("transaction", 0).query();
 		
 		return (int) sum;
 	}
 
-	public int expenseByMonth(String MM) {
-		// TODO Return a query of total expense for a month
-		return 0;
+	public int expenseByMonth(String MM) throws SQLException, ParseException {
+		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(MM);
+		return (int)transactionDao.queryRawValue("select sum(t.transaction) from transaction t where t.transaction<0 and STRFTIME('%m', t.`t.transactionDate`) like \"" + MM + "\"");
 	}
 
-	public int expenseByCategoryByMonth(String MM, String categoryName) {
-		// TODO Return a query of total expenses in a category in a certain month
-		return 0;
+	public int expenseByCategoryByMonth(String MM, String categoryName) throws ParseException, SQLException {
+		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(MM);
+		return (int)transactionDao.queryRawValue("select sum(t.transaction) from transaction t "
+				+ "where t.transaction<0 and STRFTIME('%m', t.`t.transactionDate`) like \"" + MM + "\" "
+						+ "and category=\""+categoryName+"\"");
 	}
 
-	public ArrayList<Object> returnExpenseObjectsByMonth(String mM) {
+	public ArrayList<Object> returnExpenseObjectsByMonth(String mM, String accountName) throws SQLException, ParseException {
 		// TODO Queries for expenses within a month and places them as objects in an array list
-		return null;
+		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(mM);
+		List<Transaction> transactions = transactionDao.queryBuilder().where().lt("transaction", 0).query();
+		transactions.removeIf(t -> t.getTransactionDate().getMonth()!=d1.getMonth());
+		ArrayList<Object> objs = new ArrayList<Object>(transactions);
+		return objs;
 	}
 
 	public ArrayList<Object> getAccountObjects() {
