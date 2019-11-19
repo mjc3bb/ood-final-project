@@ -61,21 +61,21 @@ public class FacadeOperator {
 
 	//Create Account.
 	//TODO Creating an Account that tracks a separate set of transactions.
-	public void createAccount(String accountName, Date AccountStartDate) throws SQLException {
+	public void createAccount(String accountName, Date AccountStartDate, int startingBalance) throws SQLException {
 		//TODO Put this functionality in the UpdateQueryOperator
-		update.addAccount(accountName, AccountStartDate);
+		update.addAccount(accountName, AccountStartDate, startingBalance);
 		update.updateBalance(accountName);
 	}
 
 	//TODO BELONGS TO: SelectQueryOperator Class
 	//Returns total account balances. All account balances, or specific one's?
-	public int returnBalance(String accountName) {
+	public int returnBalance(String accountName) throws SQLException {
 		return select.returnCurrentBalance(accountName);
 	}
 
 	//Returns all income for a particular month
-	public int returnIncomeByMonth(String MM) {
-		return select.incomeByMonth(MM);
+	public int returnIncomeByMonth(String MM, String accountName) throws ParseException, SQLException {
+		return select.incomeByMonth(MM, accountName);
 	}
 
 	//Returns all expenses for a particular month

@@ -26,9 +26,10 @@ public class Account {
 	public Account() {
 	}
 
-	public Account(String accountName, Date accountStart) {
+	public Account(String accountName, Date accountStart, int balance) {
 		this.accountName = accountName;
 		this.accountStart = accountStart;
+		this.currentBalance = balance;
 	}
 	
 	public long getAccountID() {
@@ -72,8 +73,9 @@ public class Account {
 	}
 	
 	//TODO Can we fit the ID into this?
-	public void setAllAttributes(String accountName, Date accountStart) {
+	public void setAllAttributes(String accountName, Date accountStart, int balance) {
 		this.accountName = accountName;
 		this.accountStart = accountStart;
+		this.currentBalance = balance;
 	}
 }

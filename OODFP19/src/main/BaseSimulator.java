@@ -29,7 +29,7 @@ public class BaseSimulator {
 			//TODO Implement all the methods so they work. It's gonna take some time.
 			FacadeOperator f = new FacadeOperator(connectionSource);
 			//TODO User input from application will be needed to create things for database, unless we make up the data here for now.
-			f.createAccount(null, null);
+			f.createAccount(null, null, 0);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
