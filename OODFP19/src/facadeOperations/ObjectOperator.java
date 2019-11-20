@@ -12,7 +12,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import models.Account;
 import models.Transaction;
 
-//TODO Meant to make it easier to use data with the GUI. Hopefully this is what is needed.
+//TODO This could be altered to become an adapter class if you'd like. Otherwise, this class will be deleted.
 public class ObjectOperator {
 	private JdbcConnectionSource conn = null;
 	private Dao<Transaction,String> transactionDao = null;

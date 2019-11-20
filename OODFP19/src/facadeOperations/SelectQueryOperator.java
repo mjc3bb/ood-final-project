@@ -36,27 +36,27 @@ public class SelectQueryOperator {
 	//Returns an array list of transaction array list that hold the attributes of that transaction as object 
 	//that can be used for tables in application
 	//YYYY/MM/DD should be the pattern for start and end Date
-	public List<Transaction> returnTransationsByDate(String startDate, String endDate) throws SQLException, ParseException {
+	public ArrayList<Transaction> returnTransationsByDate(String startDate, String endDate) throws SQLException, ParseException {
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(startDate);
 		Date d2 = new SimpleDateFormat("YYYY/MM/DD").parse(endDate);
-		List<Transaction> transactionsList = transactionDao.queryBuilder().where().between("transactionDate", d1, d2).query();
+		List<Transaction> transactions = transactionDao.queryBuilder().where().between("transactionDate", d1, d2).query();
 
-		return transactionsList;
+		return new ArrayList<Transaction>(transactions);
 	}
 
 	//Return income objects by date range
-	public List<Transaction> returnIncomesByDate(String startDate, String endDate) throws ParseException, SQLException{
+	public ArrayList<Object> returnIncomesByDate(String startDate, String endDate) throws ParseException, SQLException{
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(startDate);
 		Date d2 = new SimpleDateFormat("YYYY/MM/DD").parse(endDate);
 		List<Transaction> transactionsList = transactionDao.queryBuilder().where().between("transactionDate", d1, d2).and().gt("transaction", 0).query();
 
-		return transactionsList;
+		return new ArrayList<Object>(transactionsList);
 	}
 
 	public int incomeByMonth(String MM, String accountName) throws ParseException, SQLException {
 		// TODO Return a query of total income for one month
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(MM);
-		long sum = transactionDao.queryRawValue("select sum(t.transaction) from transaction t, account a where a.accountName=\"" + accountName +"\" and exists(t.transaction>0)");
+		long sum = transactionDao.queryRawValue("select sum(t.transaction) from transaction t, account a where a.accountName=\"" + accountName +"\" and t.transaction IS FALSE");
 		
 		return (int) sum;
 	}
@@ -64,34 +64,36 @@ public class SelectQueryOperator {
 	public int expenseByMonth(String MM, String accountName) throws ParseException, SQLException {
 		// TODO Return a query of total expense for a month
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(MM);
-		long sum = transactionDao.queryRawValue("select sum(t.transaction) from transaction t, account a where a.accountName=\"" + accountName +"\" and exists(t.transaction<0)");
+		long sum = transactionDao.queryRawValue("select sum(t.transaction) from transaction t, account a where a.accountName=\"" + accountName +"\" and t.negative IS TRUE");
 		
 		return (int) sum;
 	}
 
-	public int expenseByCategoryByMonth(String MM, String categoryName) throws ParseException, SQLException {
+	public int expenseByCategoryByMonth(String MM, String categoryName, String accountName) throws ParseException, SQLException {
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(MM);
+		//TODO Check for correct SQL syntax for checking booleans (t.negative=true or t.negative IS TRUE)
 		return (int)transactionDao.queryRawValue("select sum(t.transaction) from transaction t "
-				+ "where t.transaction<0 and STRFTIME('%m', t.`t.transactionDate`) like \"" + MM + "\" "
-						+ "and category=\""+categoryName+"\"");
+				+ "where t.negative IS TRUE and STRFTIME('%m', t.`t.transactionDate`) like \"" + MM + "\" "
+						+ "and t.category=\""+categoryName+"\" and t.account.accountName=\""+accountName+"\"");
 	}
 
-	public ArrayList<Object> returnExpenseObjectsByMonth(String mM, String accountName) throws SQLException, ParseException {
+	public ArrayList<Transaction> returnExpenseObjectsByMonth(String MM, String accountName) throws SQLException, ParseException {
 		// TODO Queries for expenses within a month and places them as objects in an array list
-		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(mM);
-		List<Transaction> transactions = transactionDao.queryBuilder().where().lt("transaction", 0).query();
+		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(MM);
+		List<Transaction> transactions = transactionDao.queryBuilder().where().eq("negative", true).query();
 		transactions.removeIf(t -> t.getTransactionDate().getMonth()!=d1.getMonth());
-		ArrayList<Object> objs = new ArrayList<Object>(transactions);
-		return objs;
+		return new ArrayList<Transaction>(transactions);
 	}
 
-	public ArrayList<Object> getAccountObjects() {
+	public ArrayList<Account> getAccountObjects() throws SQLException {
 		// TODO Queries for accounts in database and places them as objects in an array list
-		return null;
+		List<Account> accounts = accountDao.queryForAll();
+		return new ArrayList<Account>(accounts);
 	}
 
-	public ArrayList<Object> returnExpenseObjectsByAccount(String accountName) {
+	public ArrayList<Transaction> returnExpenseObjectsByAccount(String accountName) throws SQLException {
 		// TODO Queries for expenses from certain account and places them as objects in array list
-		return null;
+		List<Transaction> transactions = transactionDao.queryBuilder().where().eq("negative", true).and().eq("accountName", accountName).query();
+		return new ArrayList<Transaction>(transactions);
 	}
 }

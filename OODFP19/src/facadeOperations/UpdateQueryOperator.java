@@ -53,9 +53,15 @@ public class UpdateQueryOperator {
 		updateBuilder.update();
 	}
 
+	public void updateBalanceWithStartingBalance(String accountName, int amount) throws SQLException {
+		long sum = (long)amount + transactionDao.queryRawValue("select sum(t.transaction) from transaction t, account a where a.accountName=\"" + accountName +"\"");
+		UpdateBuilder<Account, String> updateBuilder = accountDao.updateBuilder();
+		updateBuilder.updateColumnValue("currentBalance", sum).where().eq("accountName", accountName);
+		updateBuilder.update();
+	}
 	public void addIncome(String accountName, int amount) throws SQLException {
 		// TODO Should do the same as addTransaction, but will have null value for location and have some defaults for other attributes
-		long sum = transactionDao.queryRawValue("select sum(t.transaction) from transaction t, account a where a.accountName=\"" + accountName +"\" and exists(t.transaction>0)");
+		long sum = transactionDao.queryRawValue("select sum(t.transaction) from transaction t, account a where a.accountName=\"" + accountName +"\" and t.negative IS FALSE");
 		UpdateBuilder<Account, String> updateBuilder = accountDao.updateBuilder();
 		updateBuilder.updateColumnValue("currentBalance", sum).where().eq("accountName", accountName);
 		updateBuilder.update();

@@ -21,7 +21,9 @@ public class FacadeOperator {
 	private SelectQueryOperator select;
 //	private AdditonOperator add;
 	private Transaction transaction;
-
+	private Dao<Account,String> accountDao;
+	private Dao<Transaction,String> transactionDao;
+	
 	//All the methods will use this connection to work with the database.
 	private String url = "jdbc:sqlite:sqlite/db/test.db";
 	public JdbcConnectionSource con = null;
@@ -33,15 +35,15 @@ public class FacadeOperator {
 //		this.add = new AdditonOperator(con);
 		this.transaction = new Transaction();
 		//Create DAOs for database tables (models)
-		Dao<Account,String> accountDao = DaoManager.createDao(con, Account.class);
-		Dao<Transaction,String> transactionDao = DaoManager.createDao(con, Transaction.class);
+		this.accountDao = DaoManager.createDao(con, Account.class);
+		this.transactionDao = DaoManager.createDao(con, Transaction.class);
 	}
 
 	//Create several methods to do application operations (that's probably a good name for this class, "ApplicationOperator".
 
 	//TODO: Make sure to include instantiation of transaction object
 
-	//TODO BELONGS TO: UpdateQueryOperator Class
+	//****BELONGS TO: UpdateQueryOperator Class*****************************************************************************//
 	public void addTransaction(int amount, String dateOfTransaction, String location, String accountName, String category, boolean recurring) throws SQLException, ParseException {
 		//TODO Put this functionality in the UpdateQueryOperator
 		update.addTransaction(amount, dateOfTransaction, location, accountName, category, recurring);
@@ -57,17 +59,21 @@ public class FacadeOperator {
 		update.addTransaction(amount, date, location, accountName, category, recurring);
 		update.updateBalance(accountName);
 	}
-	//THE ABOVE Methods should also update the account balance for the given accountName. Will be done in separateupdate.method().////////////////////////////////////
-
 	//Create Account.
 	//TODO Creating an Account that tracks a separate set of transactions.
 	public void createAccount(String accountName, Date AccountStartDate, int startingBalance) throws SQLException {
 		//TODO Put this functionality in the UpdateQueryOperator
 		update.addAccount(accountName, AccountStartDate, startingBalance);
-		update.updateBalance(accountName);
+		
+		//TODO To ensure startingBalance can be overwritten when transactions are filled in while creating an account.
+		//There may be a better way to do this, like creating a new method.
+		if(transactionDao.countOf()>0)
+		update.updateBalanceWithStartingBalance(accountName, startingBalance);
 	}
-
-	//TODO BELONGS TO: SelectQueryOperator Class
+	//****^BELONGS TO: UpdateQueryOperator Class^*****************************************************************************//
+	
+	
+	//********v BELONGS TO: SelectQueryOperator Class v*******************************************************//
 	//Returns total account balances. All account balances, or specific one's?
 	public int returnBalance(String accountName) throws SQLException {
 		return select.returnCurrentBalance(accountName);
@@ -85,31 +91,30 @@ public class FacadeOperator {
 
 	//Returns the sum of transactions spent in a certain category from certain dates.
 	public int returnSpendingInCategoryByMonth(String MM, String categoryName, String accountName) throws ParseException, SQLException {
-		// TODO: Add accountName as argument
-		return select.expenseByCategoryByMonth(MM, categoryName);
+		return select.expenseByCategoryByMonth(MM, categoryName, accountName);
 	}
 
-	//Returns an array list of expense objects that contain the attributes dealing with that expense
-	public ArrayList<Object> returnExpenseObjects(String MM, String accountName) throws SQLException, ParseException{
+	//Returns an array list of expense objects from a certain account that contain the attributes dealing with that expense
+	public ArrayList<Transaction> returnExpenseObjects(String MM, String accountName) throws SQLException, ParseException{
 		//Make sure whatever the month is it can be understood by SQLite
 		return select.returnExpenseObjectsByMonth(MM, accountName);
 	}
 
 	//Returns array list of account objects that contain the attributes of an account
-	public ArrayList<Object> returnAccountObjects(){
+	public ArrayList<Account> returnAccountObjects() throws SQLException{
 		return select.getAccountObjects();
 	}
 
 	//Returns array list of expense objects from specific account
-	public ArrayList<Object> returnExpensesBasedOnAccount(String accountName){
+	public ArrayList<Transaction> returnExpensesBasedOnAccount(String accountName) throws SQLException{
 		return select.returnExpenseObjectsByAccount(accountName);
 	}
+	//********^BELONGS TO: SelectQueryOperator Class^*******************************************************//
 
-
 	
 	
-	
-	//BEING CONSIDERED FOR REMOVAL//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Consider any other methods that would be key features of the application  
+	//********** FOR REMOVAL//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 //	//TODO May be able to take out
 //	//Category Addition
@@ -122,38 +127,5 @@ public class FacadeOperator {
 //		//Removes some type of entry to your balance. Say you made a return on an item, or some type of income was an accident.
 //		//This may not be needed at all really. This could just be seen in the changing expenses.
 //	}
-//	//Add Expense
-//	public void AddExpense() throws SQLException {
-//		//This would be how the user would add new expenses they made
-//		//Create transaction to be added
-//		//TODO No idea if passing connection through will give access to original tables of database
-//		//transaction = new Transaction(10, new Date(), con);
-//		add.addSingleExpense(transaction);
-//	}
-//
-//	//Add Income
-//	public void AddIncome() throws SQLException {
-//		//This would be how the user would add new income they obtained.
-//		//transaction = new Transaction(10, new Date(), con);
-//		add.addSingleIncome(transaction);
-//	}
-//	//Expenditure tracking
-//	public void ExpendituresTracking() throws SQLException {
-//		//Tracks total expenditures and provides table for recurring expenditures, expenditures by month, and total expenditures
-//		//Hopefully this returns a query result
-//		String TotalExpenditures = add.addAllExpenses();
-//		System.out.println(TotalExpenditures);
-//	}
-//
-//	//Income Tracking
-//	public void IncomeTracking() throws SQLException{
-//		//Tracks total income and provides table for recurring income, income by month, and total income.
-//		System.out.println(add.addAllIncomes());
-//	}
-////	TODO Change to literally just removing an account
-//		public void removeAccount() {
-//			//TODO Put in UpdateQueryOperator
-//		}
-	//Consider any other methods that would be key features of the application
 
 }
