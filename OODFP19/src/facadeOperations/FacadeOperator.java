@@ -19,8 +19,6 @@ public class FacadeOperator {
 	//TODO: Create SelectQueryOperator and UpdateQueryOperator to condense the operator classes below.
 	private UpdateQueryOperator update;
 	private SelectQueryOperator select;
-//	private AdditonOperator add;
-	private Transaction transaction;
 	private Dao<Account,String> accountDao;
 	private Dao<Transaction,String> transactionDao;
 	
@@ -28,20 +26,28 @@ public class FacadeOperator {
 	private String url = "jdbc:sqlite:sqlite/db/test.db";
 	public JdbcConnectionSource con = null;
 
+	//TODO Used if we still wanted to implement Singleton, but ormlite has it built in.
+//	static FacadeOperator fo;
+	
+	//Change visibility of constructor to private if you needed to make this Singleton, but that's probably not needed.
 	public FacadeOperator(JdbcConnectionSource conn) throws SQLException {
 		con = conn;
 		this.update = new UpdateQueryOperator(con);
 		this.select = new SelectQueryOperator(con);
-//		this.add = new AdditonOperator(con);
-		this.transaction = new Transaction();
 		//Create DAOs for database tables (models)
 		this.accountDao = DaoManager.createDao(con, Account.class);
 		this.transactionDao = DaoManager.createDao(con, Transaction.class);
 	}
 
-	//Create several methods to do application operations (that's probably a good name for this class, "ApplicationOperator".
-
-	//TODO: Make sure to include instantiation of transaction object
+	//TODO Hopefully this makes it Singleton if need be, but it is already static on its own.
+//	public static synchronized FacadeOperator getFacadeOperator(JdbcConnectionSource conn) throws SQLException {
+//		if(fo==null)
+//			fo = new FacadeOperator(conn);
+//		return fo;
+//	}
+	
+	
+	//Several methods to do application operations (that's probably a good name for this class, "ApplicationOperator".
 
 	//****BELONGS TO: UpdateQueryOperator Class*****************************************************************************//
 	public void addTransaction(int amount, String dateOfTransaction, String location, String accountName, String category, boolean recurring) throws SQLException, ParseException {

@@ -19,7 +19,6 @@ public class Account {
 	@DatabaseField(dataType=DataType.DATE)
 	private Date accountStart;
 	
-//	May just have to implement this with queries. Trick the application in to thinking there is an attribute for currentBalance.
 	@DatabaseField(dataType=DataType.INTEGER)
 	private int currentBalance;
 	
@@ -70,12 +69,5 @@ public class Account {
 		obj.add(accountStart);
 		obj.add(accountID);
 		return obj;
-	}
-	
-	//TODO Can we fit the ID into this?
-	public void setAllAttributes(String accountName, Date accountStart, int balance) {
-		this.accountName = accountName;
-		this.accountStart = accountStart;
-		this.currentBalance = balance;
 	}
 }

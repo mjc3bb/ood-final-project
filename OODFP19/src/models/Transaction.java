@@ -54,14 +54,6 @@ public class Transaction {
 		this.category = category;
 		this.recurring = recurring;
 	}
-	//TODO Have no idea if this actually works. Will passing connection give access to that database, or should an object of each thing be sent through the main?
-//	public Transaction(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
-//		this.transaction = transaction;
-//		this.transactionDate = transactionDate;
-//		this.account = (Account) connection.getReadOnlyConnection("budget");
-//		this.category = connection.getReadOnlyConnection("category");
-//		this.recurring = connection("recurring");
-//	}
 
 	public long getEntryID() {
 		return entryID;
@@ -138,12 +130,4 @@ public class Transaction {
 		obj.add(location);
 		return obj;
 	}
-
-//	public void setAllAttributes(int transaction, Date transactionDate, JdbcConnectionSource connection) throws SQLException {
-//		this.transaction = transaction;
-//		this.transactionDate = transactionDate;
-//		this.account = (Account) connection.getReadWriteConnection("budget");
-//		this.category = (Category) connection.getReadWriteConnection("category");
-//		this.recurring = (Recurring) connection.getReadWriteConnection("recurring");
-//	}
 }
