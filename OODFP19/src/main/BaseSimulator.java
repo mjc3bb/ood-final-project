@@ -2,6 +2,7 @@ package main;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -30,9 +31,22 @@ public class BaseSimulator {
 			FacadeOperator f = new FacadeOperator(connectionSource);
 			//TODO User input from application will be needed to create things for database, unless we make up the data here for now.
 			f.createAccount(null, null, 0);
-			
+			//TODO Fill in with test values to see if this actually works...oh boy. 
+			//TODO Probably need even more transactions and at least one more account.
+//			f.addExpense(0, null, null, null, null, false);
+//			f.addIncome(null, 0);
+//			f.addTransaction(0, null, null, null, null, false);
+//			f.returnBalance(null);
+//			f.returnExpenseObjects(null, null);
+//			f.returnExpensesBasedOnAccount(null);
+//			f.returnIncomeByMonth(null, null);
+//			f.returnSpendingByMonth(null, null);
+//			f.returnSpendingInCategoryByMonth(null, null, null);
 		} catch (SQLException e) {
 			e.printStackTrace();
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 		}
 		return connectionSource;
     }
