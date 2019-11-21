@@ -11,7 +11,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import models.Account;
-import models.Transaction;
+import models.Expense;
 
 public class FacadeOperator {
 	//Create several objects of the things that will be used in these methods. Most likely some type of DAO will be passed to each object. 
@@ -21,17 +21,16 @@ public class FacadeOperator {
 	private UpdateQueryOperator update;
 	private SelectQueryOperator select;
 	private Dao<Account,String> accountDao;
-	private Dao<Transaction,String> transactionDao;
+	private Dao<Expense,String> transactionDao;
 	
 	//All the methods will use this connection to work with the database.
 	private String url = "jdbc:sqlite:sqlite/db/data.db";
 	public JdbcConnectionSource con = null;
 
-	//TODO Used if we still wanted to implement Singleton, but ormlite has it built in.
-//	static FacadeOperator fo;
+	static FacadeOperator fo;
 	
 	//Change visibility of constructor to private if you needed to make this Singleton, but that's probably not needed.
-	public FacadeOperator() {
+	private FacadeOperator() {
 		con = getConnection();
 		
 		try {
@@ -39,7 +38,7 @@ public class FacadeOperator {
 			this.select = new SelectQueryOperator(con);
 			//Create DAOs for database tables (models)
 			this.accountDao = DaoManager.createDao(con, Account.class);
-			this.transactionDao = DaoManager.createDao(con, Transaction.class);
+			this.transactionDao = DaoManager.createDao(con, Expense.class);
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -51,7 +50,7 @@ public class FacadeOperator {
 		JdbcConnectionSource connectionSource = null;
 		try {
 			connectionSource = new JdbcConnectionSource(url);
-			TableUtils.createTableIfNotExists(connectionSource, Transaction.class);
+			TableUtils.createTableIfNotExists(connectionSource, Expense.class);
 			TableUtils.createTableIfNotExists(connectionSource, Account.class);
 
 		} 
@@ -61,18 +60,18 @@ public class FacadeOperator {
 		return connectionSource;
 	}
 
-	//TODO Hopefully this makes it Singleton if need be, but it is already static on its own.
-//	public static synchronized FacadeOperator getFacadeOperator(JdbcConnectionSource conn) throws SQLException {
-//		if(fo==null)
-//			fo = new FacadeOperator(conn);
-//		return fo;
-//	}
+    public static synchronized FacadeOperator getNameFactory() {
+        if (fo == null) {
+            fo = new FacadeOperator();
+        }
+        return fo;
+    }
 	
 	
 	//Several methods to do application operations (that's probably a good name for this class, "ApplicationOperator".
 
 	//****BELONGS TO: UpdateQueryOperator Class*****************************************************************************//
-	public void addTransaction(int amount, String dateOfTransaction, String location, String accountName, String category, boolean recurring) throws SQLException, ParseException {
+	public void addTransaction(double amount, String dateOfTransaction, String location, String accountName, String category, boolean recurring) throws SQLException, ParseException {
 		//TODO Put this functionality in the UpdateQueryOperator
 		update.addTransaction(amount, dateOfTransaction, location, accountName, category, recurring);
 		update.updateBalance(accountName);
@@ -83,7 +82,7 @@ public class FacadeOperator {
 		update.updateBalance(accountName);
 	}
 
-	public void addExpense(int amount, String location, String date, String accountName, String category, boolean recurring) throws SQLException, ParseException {
+	public void addExpense(double amount, String location, String date, String accountName, String category, boolean recurring) throws SQLException, ParseException {
 		update.addTransaction(amount, date, location, accountName, category, recurring);
 		update.updateBalance(accountName);
 	}
@@ -96,7 +95,7 @@ public class FacadeOperator {
 		//TODO To ensure startingBalance can be overwritten when transactions are filled in while creating an account.
 		//There may be a better way to do this, like creating a new method.
 		if(transactionDao.countOf()>0)
-		update.updateBalanceWithStartingBalance(accountName, accountBalance);
+		update.updateBalance(accountName);
 	}
 	//****^BELONGS TO: UpdateQueryOperator Class^*****************************************************************************//
 	
@@ -123,9 +122,9 @@ public class FacadeOperator {
 	}
 
 	//Returns an array list of expense objects from a certain account that contain the attributes dealing with that expense
-	public ArrayList<Transaction> returnExpenseObjects(String MM, String accountName) throws SQLException, ParseException{
+	public ArrayList<Expense> returnExpenseObjects(String MM) throws SQLException, ParseException{
 		//Make sure whatever the month is it can be understood by SQLite
-		return select.returnExpenseObjectsByMonth(MM, accountName);
+		return select.returnExpenseObjectsByMonth(MM);
 	}
 
 	//Returns array list of account objects that contain the attributes of an account
@@ -134,7 +133,7 @@ public class FacadeOperator {
 	}
 
 	//Returns array list of expense objects from specific account
-	public ArrayList<Transaction> returnExpensesBasedOnAccount(String accountName) throws SQLException{
+	public ArrayList<Expense> returnExpensesBasedOnAccount(String accountName) throws SQLException{
 		return select.returnExpenseObjectsByAccount(accountName);
 	}
 

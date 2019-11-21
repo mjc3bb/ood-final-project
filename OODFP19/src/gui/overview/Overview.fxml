@@ -18,7 +18,7 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label layoutX="872.0" layoutY="136.0" text="\$XXX.XX" textFill="#00fffb">
+      <Label fx:id="accountBalance" layoutX="872.0" layoutY="136.0" text="\$XXX.XX" textFill="#00fffb">
          <font>
             <Font size="25.0" />
          </font></Label>
@@ -26,7 +26,7 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label layoutX="876.0" layoutY="221.0" text="\$XXX.XX" textFill="#00e80f">
+      <Label fx:id="income" layoutX="876.0" layoutY="221.0" text="\$XXX.XX" textFill="#00e80f">
          <font>
             <Font size="25.0" />
          </font></Label>
@@ -54,7 +54,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="876.0" layoutY="313.0" text="\$XXX.XX" textFill="#c70000">
+      <Label fx:id="spending" layoutX="876.0" layoutY="313.0" text="\$XXX.XX" textFill="#c70000">
          <font>
             <Font size="25.0" />
          </font>

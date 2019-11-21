@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import models.Account;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.Initializable;
@@ -67,7 +66,7 @@ public class AccountsController implements Initializable{
     @FXML
     private MenuItem typeChecking, typeSavings;
     
-    FacadeOperator database = new FacadeOperator();
+    FacadeOperator database = FacadeOperator.getNameFactory();
     
     private ObservableList<ObservableAccount> accountsTableList = FXCollections.observableArrayList();
     ArrayList<Account> dbAccounts = new ArrayList<Account>();

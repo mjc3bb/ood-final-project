@@ -10,16 +10,16 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import models.Account;
-import models.Transaction;
+import models.Expense;
 
 public class SelectQueryOperator {
 	private JdbcConnectionSource conn = null;
-	private Dao<Transaction,String> transactionDao = null;
+	private Dao<Expense,String> transactionDao = null;
 	private Dao<Account,String> accountDao = null;
 
 	public SelectQueryOperator(JdbcConnectionSource con) throws SQLException{
 		this.conn = con;
-		transactionDao = DaoManager.createDao(conn, Transaction.class);
+		transactionDao = DaoManager.createDao(conn, Expense.class);
 		accountDao = DaoManager.createDao(conn, Account.class);
 	}
 
@@ -33,19 +33,19 @@ public class SelectQueryOperator {
 	//Returns an array list of transaction array list that hold the attributes of that transaction as object 
 	//that can be used for tables in application
 	//YYYY/MM/DD should be the pattern for start and end Date
-	public ArrayList<Transaction> returnTransationsByDate(String startDate, String endDate) throws SQLException, ParseException {
+	public ArrayList<Expense> returnTransationsByDate(String startDate, String endDate) throws SQLException, ParseException {
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(startDate);
 		Date d2 = new SimpleDateFormat("YYYY/MM/DD").parse(endDate);
-		List<Transaction> transactions = transactionDao.queryBuilder().where().between("transactionDate", d1, d2).query();
+		List<Expense> transactions = transactionDao.queryBuilder().where().between("transactionDate", d1, d2).query();
 
-		return new ArrayList<Transaction>(transactions);
+		return new ArrayList<Expense>(transactions);
 	}
 
 	//Return income objects by date range
 	public ArrayList<Object> returnIncomesByDate(String startDate, String endDate) throws ParseException, SQLException{
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(startDate);
 		Date d2 = new SimpleDateFormat("YYYY/MM/DD").parse(endDate);
-		List<Transaction> transactionsList = transactionDao.queryBuilder().where().between("transactionDate", d1, d2).and().gt("transaction", 0).query();
+		List<Expense> transactionsList = transactionDao.queryBuilder().where().between("transactionDate", d1, d2).and().gt("transaction", 0).query();
 
 		return new ArrayList<Object>(transactionsList);
 	}
@@ -74,12 +74,12 @@ public class SelectQueryOperator {
 						+ "and t.category=\""+categoryName+"\" and t.account.accountName=\""+accountName+"\"");
 	}
 
-	public ArrayList<Transaction> returnExpenseObjectsByMonth(String MM, String accountName) throws SQLException, ParseException {
+	public ArrayList<Expense> returnExpenseObjectsByMonth(String MM) throws SQLException, ParseException {
 		// TODO Queries for expenses within a month and places them as objects in an array list
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(MM);
-		List<Transaction> transactions = transactionDao.queryBuilder().where().eq("negative", true).query();
+		List<Expense> transactions = transactionDao.queryBuilder().where().eq("negative", true).query();
 		transactions.removeIf(t -> t.getTransactionDate().getMonth()!=d1.getMonth());
-		return new ArrayList<Transaction>(transactions);
+		return new ArrayList<Expense>(transactions);
 	}
 
 	public ArrayList<Account> getAccountObjects() throws SQLException {
@@ -88,9 +88,9 @@ public class SelectQueryOperator {
 		return new ArrayList<Account>(accounts);
 	}
 
-	public ArrayList<Transaction> returnExpenseObjectsByAccount(String accountName) throws SQLException {
+	public ArrayList<Expense> returnExpenseObjectsByAccount(String accountName) throws SQLException {
 		// TODO Queries for expenses from certain account and places them as objects in array list
-		List<Transaction> transactions = transactionDao.queryBuilder().where().eq("negative", true).and().eq("accountName", accountName).query();
-		return new ArrayList<Transaction>(transactions);
+		List<Expense> transactions = transactionDao.queryBuilder().where().eq("negative", true).and().eq("accountName", accountName).query();
+		return new ArrayList<Expense>(transactions);
 	}
 }

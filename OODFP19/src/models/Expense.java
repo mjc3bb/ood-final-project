@@ -9,45 +9,45 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 
-//TODO: Is this a table that holds all transactions or is each transaction independnet
-@DatabaseTable(tableName="transaction")
-public class Transaction {
+//TODO: Is this a table that holds all transactions or is each amount independnet
+@DatabaseTable(tableName="expense")
+public class Expense {
 
 	@DatabaseField(generatedId=true)
 	private long entryID;
 
-	@DatabaseField(dataType=DataType.INTEGER)
-	private int transaction;
+	@DatabaseField(dataType=DataType.DOUBLE)
+	private double amount;
 
 	//The Application reads it as YYYY-MM-DD
 	@DatabaseField(dataType=DataType.DATE)
 	private Date transactionDate;
 
-	//Location of the transaction as a String
+	//Location of the amount as a String
 	@DatabaseField(dataType=DataType.STRING_BYTES)
 	private String location;
 	
-	//References the account the transaction is attached to
+	//References the account the amount is attached to
 	@DatabaseField(foreign = true)
 	private Account account;
 
 	@DatabaseField(dataType=DataType.STRING_BYTES)
 	private String category; 
 
-	//Boolean that determines whether a transaction is recurring or not
+	//Boolean that determines whether a amount is recurring or not
 	@DatabaseField(dataType=DataType.BOOLEAN)
 	private boolean recurring;	
 
-	//Shows whether the transaction is negative or not
+	//Shows whether the amount is negative or not
 	@DatabaseField(dataType=DataType.BOOLEAN)
 	private boolean negative;
 
-	public Transaction() {
+	public Expense() {
 	}
 
-	public Transaction(int transaction, Date transactionDate, String location, Account account, String category,
+	public Expense(double transaction, Date transactionDate, String location, Account account, String category,
 			boolean recurring) {
-		this.transaction = transaction;
+		this.amount = transaction;
 		this.transactionDate = transactionDate;
 		this.location = location;
 		this.account = account;
@@ -63,12 +63,12 @@ public class Transaction {
 		this.entryID = entryID;
 	}
 
-	public int getTransaction() {
-		return transaction;
+	public double getTransaction() {
+		return amount;
 	}
 
-	public void setTransaction(int transaction) {
-		this.transaction = transaction;
+	public void setTransaction(double transaction) {
+		this.amount = transaction;
 	}
 
 	public Date getTransactionDate() {
@@ -122,7 +122,7 @@ public class Transaction {
 	public ArrayList<Object> getAllAttributes(){
 		ArrayList<Object> obj = new ArrayList<Object>();
 		obj.add(entryID);
-		obj.add(transaction);
+		obj.add(amount);
 		obj.add(account);
 		obj.add(category);
 		obj.add(recurring);

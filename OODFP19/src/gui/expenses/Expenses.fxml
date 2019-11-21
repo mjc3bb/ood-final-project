@@ -35,17 +35,17 @@
       </Label>
       <JFXTextField fx:id="expenseAmount" focusColor="#40a849" layoutX="728.0" layoutY="165.0" prefHeight="25.0" prefWidth="135.0" promptText="Amount" stylesheets="@../../../assets/css/textfield.css" />
       <JFXTextField fx:id="expenseLocation" layoutX="908.0" layoutY="165.0" promptText="Location" stylesheets="@../../../assets/css/textfield.css" />
-      <MenuButton fx:id="expenseAccount" layoutX="937.0" layoutY="218.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Account" textFill="WHITE">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
+      <MenuButton fx:id="expenseAccount" layoutX="937.0" layoutY="218.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Account" textFill="WHITE" />
       <JFXDatePicker fx:id="expenseDate" defaultColor="WHITE" layoutX="728.0" layoutY="245.0" prefHeight="28.0" prefWidth="135.0" promptText="Date" stylesheets="@../../../assets/css/textfield.css" />
       <MenuButton fx:id="expenseCategory" layoutX="935.0" layoutY="259.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Category" textFill="WHITE">
         <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
+            <MenuItem fx:id="groceryItem" mnemonicParsing="false" onAction="#updateSelectCategory" text="Grocery" />
+            <MenuItem fx:id="transportationItem" mnemonicParsing="false" onAction="#updateSelectCategory" text="Transportation" />
+          <MenuItem fx:id="utilityItem" mnemonicParsing="false" onAction="#updateSelectCategory" text="Bill/Utility" />
+          <MenuItem fx:id="diningItem" mnemonicParsing="false" onAction="#updateSelectCategory" text="Dining" />
+            <MenuItem fx:id="shoppingItem" mnemonicParsing="false" onAction="#updateSelectCategory" text="Shopping" />
+            <MenuItem fx:id="entertainmentItem" mnemonicParsing="false" onAction="#updateSelectCategory" text="Entertainment" />
+            <MenuItem fx:id="seasonalItem" mnemonicParsing="false" onAction="#updateSelectCategory" text="Seasonal" />
         </items>
       </MenuButton>
       <JFXButton fx:id="submitExpense" buttonType="RAISED" layoutX="866.0" layoutY="361.0" onAction="#addExpense" style="-fx-background-color: #02d43a;" text="Submit" textFill="WHITE" />
