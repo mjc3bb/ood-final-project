@@ -8,6 +8,7 @@ public class ViewChanger {
 	private final String OVERVIEW = "/gui/overview/Overview.fxml";
 	private final String EXPENSES = "/gui/expenses/Expenses.fxml";
 	private final String ACCOUNTS = "/gui/accounts/Accounts.fxml";
+	private final String CONVERTER = "/gui/converter/UIadapter.fxml";
 
 	public AnchorPane loadOverview() {
 		AnchorPane result = null;
@@ -38,6 +39,18 @@ public class ViewChanger {
 		
 		try {
 			 result = FXMLLoader.load(getClass().getResource(ACCOUNTS));
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public AnchorPane loadConverter() {
+		AnchorPane result = null;
+		
+		try {
+			 result = FXMLLoader.load(getClass().getResource(CONVERTER));
 		} 
 		catch (Exception e) {
 			e.printStackTrace();

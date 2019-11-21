@@ -3,6 +3,8 @@ package gui.overview;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXDatePicker;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,6 +14,9 @@ public class OverviewController implements Initializable {
 
     @FXML
     private PieChart chart;
+    
+    @FXML
+    private JFXDatePicker datePicker;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -23,6 +28,8 @@ public class OverviewController implements Initializable {
 	            new PieChart.Data("Entertainment", 30));
 		
 	}
+	
+	
 
 }
 

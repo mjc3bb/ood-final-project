@@ -42,7 +42,7 @@
          <font>
             <Font size="13.0" />
          </font></Button>
-      <Button fx:id="utilitiesButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #3b3b3b;" text="Utilities" textFill="WHITE">
+      <Button fx:id="utilitiesButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #3b3b3b;" text="Converter" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font></Button>

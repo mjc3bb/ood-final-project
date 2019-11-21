@@ -48,7 +48,7 @@
           <MenuItem mnemonicParsing="false" text="Action 2" />
         </items>
       </MenuButton>
-      <JFXButton fx:id="submitExpense" buttonType="RAISED" layoutX="866.0" layoutY="361.0" style="-fx-background-color: #02d43a;" text="Submit" textFill="WHITE" />
+      <JFXButton fx:id="submitExpense" buttonType="RAISED" layoutX="866.0" layoutY="361.0" onAction="#addExpense" style="-fx-background-color: #02d43a;" text="Submit" textFill="WHITE" />
       <JFXCheckBox fx:id="reccuringCheckbox" checkedColor="#09f37e" layoutX="855.0" layoutY="307.0" text="Recurring" textFill="WHITE" unCheckedColor="#dadada" />
       <JFXButton fx:id="changeMonth" buttonType="RAISED" layoutX="44.0" layoutY="41.0" text="Change Month" textFill="WHITE" />
       <MenuButton fx:id="selectMonth" layoutX="157.0" layoutY="41.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Month" textFill="WHITE">

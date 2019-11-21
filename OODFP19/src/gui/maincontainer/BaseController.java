@@ -68,7 +68,8 @@ public class BaseController implements Initializable {
 
 	private void loadUtilities() {
 		drawerAction();
-		windowName.setText("Utilities");
+		viewPane.getChildren().setAll(changeView.loadConverter());
+		windowName.setText("Converter");
 	}
 
 	private void loadManage() {

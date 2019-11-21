@@ -38,38 +38,32 @@
       </Label>
       <TableView fx:id="accountsTable" layoutX="88.0" layoutY="157.0" prefHeight="264.0" prefWidth="458.0" stylesheets="@../../../assets/css/table.css">
         <columns>
-          <TableColumn fx:id="name" prefWidth="216.00000762939453" text="Name" />
-          <TableColumn fx:id="type" minWidth="0.57147216796875" prefWidth="108.0" text="Type" />
-            <TableColumn fx:id="balance" prefWidth="134.85708618164062" text="Balance" />
+          <TableColumn fx:id="name" editable="false" prefWidth="216.00000762939453" text="Name" />
+          <TableColumn fx:id="type" editable="false" minWidth="0.57147216796875" prefWidth="108.0" text="Type" />
+            <TableColumn fx:id="balance" editable="false" prefWidth="130.85720825195312" text="Balance" />
         </columns>
       </TableView>
-      <Label fx:id="createNewAccountHeader" layoutX="88.0" layoutY="479.0" text="Create New Account" textFill="WHITE">
+      <Label fx:id="createNewAccountHeader" layoutX="88.0" layoutY="477.0" text="Create New Account" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="createAccountName" layoutX="88.0" layoutY="522.0" promptText="Name" stylesheets="@../../../assets/css/textfield.css" />
+      <JFXTextField fx:id="createAccountName" focusColor="#43d23c" labelFloat="true" layoutX="88.0" layoutY="519.0" promptText="Name" stylesheets="@../../../assets/css/textfield.css" />
       <MenuButton fx:id="createAccountType" layoutX="88.0" layoutY="610.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Account Type" textFill="WHITE">
         <items>
-          <MenuItem mnemonicParsing="false" text="Checking" />
-          <MenuItem mnemonicParsing="false" text="Savings" />
-            <MenuItem mnemonicParsing="false" text="Credit" />
+          <MenuItem fx:id="typeChecking" mnemonicParsing="false" onAction="#selectChecking" text="Checking" />
+          <MenuItem fx:id="typeSavings" mnemonicParsing="false" onAction="#selectSavings" text="Savings" />
         </items>
       </MenuButton>
-      <JFXTextField fx:id="createAccountBalance" layoutX="88.0" layoutY="561.0" stylesheets="@../../../assets/css/textfield.css" text="Current Balance" />
-      <JFXButton fx:id="createSubmit" buttonType="RAISED" layoutX="223.0" layoutY="610.0" style="-fx-background-color: #02d43a;" text="Create" textFill="WHITE" />
+      <JFXTextField fx:id="createAccountBalance" focusColor="#43d23c" labelFloat="true" layoutX="88.0" layoutY="561.0" promptText="Current Balance" stylesheets="@../../../assets/css/textfield.css" />
+      <JFXButton fx:id="createSubmit" buttonType="RAISED" layoutX="223.0" layoutY="610.0" onAction="#createAccount" style="-fx-background-color: #02d43a;" text="Create" textFill="WHITE" />
       <Label fx:id="addIncome" layoutX="411.0" layoutY="479.0" text="Add Income" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <MenuButton fx:id="addIncomeSelectAcount" layoutX="411.0" layoutY="573.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Account" textFill="WHITE">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
+      <MenuButton fx:id="addIncomeSelectAcount" layoutX="411.0" layoutY="573.0" maxHeight="25.0" maxWidth="85.0" minHeight="25.0" minWidth="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" scaleShape="false" style="-fx-background-color: #454545;" text="Account" textFill="WHITE" wrapText="true" />
       <JFXTextField fx:id="addIncomeAmount" layoutX="411.0" layoutY="522.0" promptText="Amount" stylesheets="@../../../assets/css/textfield.css" />
-      <JFXButton fx:id="addSubmit" layoutX="507.0" layoutY="573.0" style="-fx-background-color: #02d43a;" text="Add" textFill="WHITE" />
+      <JFXButton fx:id="addSubmit" layoutX="507.0" layoutY="573.0" onAction="#addIncome" style="-fx-background-color: #02d43a;" text="Add" textFill="WHITE" />
    </children>
 </AnchorPane>

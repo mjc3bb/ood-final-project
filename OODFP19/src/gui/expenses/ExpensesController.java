@@ -12,8 +12,8 @@ import javafx.scene.control.TableView;
 
 public class ExpensesController {
 
-//    @FXML
-//    private TableView<Object> expensesTable;
+    @FXML
+    private TableView<ObservableExpenses> expensesTable;
 //
 //    @FXML
 //    private TableColumn<Object, String> location;
@@ -104,5 +104,34 @@ public class ExpensesController {
 
     @FXML
     private Label entertainmentAmount;
+    
+    public void addExpense() {
+    	if (!checkFields()) return;
+    	double amount = 0;
+    	try {
+    		amount = Double.parseDouble(expenseAmount.getText());
+    	}
+    	catch (Exception ex) {
+    		System.out.println("Cannot parse provided double value.");
+    	}
+    	String location = expenseLocation.getText();
+    	String date = expenseDate.getValue().toString();
+    	String account = expenseAccount.getText().toString();
+    	String category = expenseCategory.getText().toString();
+    	boolean recurring = reccuringCheckbox.isSelected();
+    	
+    }
+
+	private boolean checkFields() {
+		if (
+			expenseAmount.getText().isEmpty() ||
+			expenseLocation.getText().isEmpty() ||
+			expenseDate.getValue().toString().isEmpty() ||
+			expenseAccount.getText().equalsIgnoreCase("Account") ||
+			expenseCategory.getText().contentEquals("Category")) {
+			return false;
+		}
+		return true;
+	}
 
 }

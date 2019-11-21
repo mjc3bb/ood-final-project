@@ -6,10 +6,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="sqlite-jdbc-3.27.2.1.jar"/>
+	<classpathentry kind="lib" path="ormlite-jdbc-5.1.jar"/>
+	<classpathentry kind="lib" path="ormlite-core-5.1.jar"/>
 	<classpathentry kind="lib" path="javafx/ant-javafx.jar"/>
 	<classpathentry exported="true" kind="lib" path="javafx/javafx-swt.jar"/>
 	<classpathentry kind="lib" path="javafx/jrt-fs.jar"/>
 	<classpathentry exported="true" kind="lib" path="javafx/jfoenix-9.0.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Gages/git/ood-final-project/OODFP19/javafx/guava-23.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
