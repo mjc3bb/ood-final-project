@@ -1,18 +1,18 @@
 package facadeOperations;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
-
 import models.Account;
 import models.Expense;
 
@@ -27,13 +27,14 @@ public class UpdateQueryOperator {
 		accountDao = DaoManager.createDao(conn, Account.class);
 	}
 
-	public void addTransaction(double amount, String date, String location, String accountName, String category,
-			boolean recurring) throws SQLException, ParseException {
-		//TODO Query the account name and return it to add to the transaction object.
-		Date d = new SimpleDateFormat("YYYY-MM-DD").parse(date);
+	public void addTransaction(double amount, Date date, String location, String accountName, String category, boolean recurring) throws SQLException, ParseException {
 		List<Account> acc = accountDao.queryBuilder().where().eq("accountName", accountName).query();
-		Expense t = new Expense(amount, d, location, acc.get(0), category, recurring);
+		Expense t = new Expense(0.00-amount, date, location, acc.get(0), category, recurring);
 		transactionDao.createOrUpdate(t);
+		long balance = transactionDao.queryRawValue("select a.currentBalance from account a where a.accountName = \"" + accountName + "\"");
+		UpdateBuilder<Account, String> updateBuilder = accountDao.updateBuilder();
+		updateBuilder.updateColumnValue("currentBalance", balance - amount).where().eq("accountName", accountName);
+		updateBuilder.update();
 	}
 
 	public void addAccount(String AccountName, String accountType, double accountBalance) throws SQLException {
@@ -45,29 +46,14 @@ public class UpdateQueryOperator {
 		accountDao.delete(account);
 	}
 
-	public void updateBalance(String accountName) throws SQLException {
-		// TODO Update the value for currentBalance of the given account with the sum of transactions for that account
-		
-		List<Account> accounts = accountDao.queryBuilder().where().eq("accountName",accountName).query();
-		double accountBalance = accounts.get(0).getCurrentBalance();
-		double sum = accountBalance + transactionDao.queryRawValue("select sum(t.amount) from expense t, account a where a.accountName=\"" + accountName +"\"");
-		UpdateBuilder<Account, String> updateBuilder = accountDao.updateBuilder();
-		updateBuilder.updateColumnValue("currentBalance", sum).where().eq("accountName", accountName);
-		updateBuilder.update();
-	}
-
-//	public void updateBalanceWithStartingBalance(String accountName, double accountBalance) throws SQLException {
-//		long sum = (long)accountBalance + transactionDao.queryRawValue("select sum(t.amount) from expense t, account a where a.accountName=\"" + accountName +"\"");
-//		UpdateBuilder<Account, String> updateBuilder = accountDao.updateBuilder();
-//		updateBuilder.updateColumnValue("currentBalance", sum).where().eq("accountName", accountName);
-//		updateBuilder.update();
-//	}
-	public void addIncome(String accountName, double amount) throws SQLException {
+	public void addIncome(String accountName, double amount, Account account) throws SQLException {
 		// TODO Should do the same as addTransaction, but will have null value for location and have some defaults for other attributes
-		long sum = transactionDao.queryRawValue("select sum(t.amount) from expense t, account a where a.accountName=\"" + accountName +"\" and t.negative IS FALSE");
+		long balance = transactionDao.queryRawValue("select a.currentBalance from account a where a.accountName = \"" + accountName + "\"");
 		UpdateBuilder<Account, String> updateBuilder = accountDao.updateBuilder();
-		updateBuilder.updateColumnValue("currentBalance", sum).where().eq("accountName", accountName);
+		updateBuilder.updateColumnValue("currentBalance", balance + amount).where().eq("accountName", accountName);
 		updateBuilder.update();
+		Date date = java.sql.Date.valueOf(LocalDate.now());
+		transactionDao.createOrUpdate(new Expense(amount, date, "N/A", account, "Income", false));
 	}
 	
 	

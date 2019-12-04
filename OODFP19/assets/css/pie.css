@@ -1,3 +1,11 @@
 .chart-pie-label { 
     -fx-fill: #ffffff;
 }
+
+.chart-legend {
+    -fx-background-color:  #40444d;
+ }
+
+ .chart-legend-item{
+    -fx-text-fill: #e2e2e2;
+}

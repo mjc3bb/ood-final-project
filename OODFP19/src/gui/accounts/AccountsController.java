@@ -2,12 +2,15 @@ package gui.accounts;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import models.Account;
+import models.Expense;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.Initializable;
@@ -18,6 +21,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import observableObjects.ObservableAccount;
+import observableObjects.ObservableTransaction;
 import javafx.scene.control.MenuItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,20 +31,14 @@ public class AccountsController implements Initializable{
     @FXML
     private MenuButton selectAccountActivity;
 
-//    @FXML
-//    private TableView<?> activityTable;
-//
-//    @FXML
-//    private TableColumn<?, ?> date;
-//
-//    @FXML
-//    private TableColumn<?, ?> location;
-//
-//    @FXML
-//    private TableColumn<?, ?> typeActivity;
-//
-//    @FXML
-//    private TableColumn<?, ?> amount;
+    @FXML
+    private TableView<ObservableTransaction> activityTable;
+
+    @FXML
+    private TableColumn<ObservableTransaction, String> date, location, typeActivity;
+
+    @FXML
+    private TableColumn<ObservableTransaction, Double> amount;
     
     @FXML
     private TableView<ObservableAccount> accountsTable;
@@ -61,7 +59,7 @@ public class AccountsController implements Initializable{
     private MenuButton createAccountType, addIncomeSelectAcount;
 
     @FXML
-    private JFXButton createSubmit, addSubmit;
+    private JFXButton createSubmit, addSubmit, viewAccount;
     
     @FXML
     private MenuItem typeChecking, typeSavings;
@@ -69,6 +67,7 @@ public class AccountsController implements Initializable{
     FacadeOperator database = FacadeOperator.getNameFactory();
     
     private ObservableList<ObservableAccount> accountsTableList = FXCollections.observableArrayList();
+    private ObservableList<ObservableTransaction> activity = FXCollections.observableArrayList();
     ArrayList<Account> dbAccounts = new ArrayList<Account>();
     
 
@@ -77,6 +76,10 @@ public class AccountsController implements Initializable{
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		type.setCellValueFactory(new PropertyValueFactory<>("type"));
 		balance.setCellValueFactory(new PropertyValueFactory<>("balance"));
+		date.setCellValueFactory(new PropertyValueFactory<>("date"));
+		this.location.setCellValueFactory(new PropertyValueFactory<>("location"));
+		typeActivity.setCellValueFactory(new PropertyValueFactory<>("category"));
+		amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		refreshAccountsTable();
 		addAccountsToIncomeAction();
 		
@@ -85,15 +88,23 @@ public class AccountsController implements Initializable{
     
     private void addAccountsToIncomeAction() {
 		List<MenuItem> items = new ArrayList<MenuItem>();
+		List<MenuItem> itemsTrans = new ArrayList<MenuItem>();
 		for (Account a : dbAccounts) {
 			MenuItem temp = new MenuItem();
 			temp.setText(a.getAccountName());
+			MenuItem temp2 = new MenuItem();
+			temp2.setText(a.getAccountName());
 			items.add(temp);
+			itemsTrans.add(temp2);
 			temp.setOnAction( (e) -> {
         		addIncomeSelectAcount.setText(a.getAccountName());
     		});
+			temp2.setOnAction( (e) -> {
+        		selectAccountActivity.setText(a.getAccountName());
+    		});
 		}
 		addIncomeSelectAcount.getItems().addAll(items);
+		selectAccountActivity.getItems().addAll(itemsTrans);
 		
 	}
 
@@ -119,6 +130,7 @@ public class AccountsController implements Initializable{
     		
     		refreshAccountsTable();
     		resetAddAccount();
+    		addAccountsToIncomeAction();
     		
     	}
     }
@@ -133,7 +145,8 @@ public class AccountsController implements Initializable{
     	
     	try {
     		amount = Double.parseDouble(addIncomeAmount.getText());
-    		database.addIncome(addIncomeSelectAcount.getText(), amount);
+    		Account temp = getAccountByName(addIncomeSelectAcount.getText());
+    		database.addIncome(addIncomeSelectAcount.getText(), amount, temp);
     		addIncomeSelectAcount.setText("Select Account");
     		addIncomeAmount.clear();
     	} 
@@ -147,7 +160,15 @@ public class AccountsController implements Initializable{
     	
     }
     
-    private void resetAddAccount() {
+    private Account getAccountByName(String text) {
+		for (Account a : dbAccounts) {
+			if (a.getAccountName().equalsIgnoreCase(text)) return a;
+		}
+		return null;
+	}
+
+
+	private void resetAddAccount() {
 		createAccountName.clear();
 		createAccountBalance.clear();
 		createAccountType.setText("Account Type");
@@ -177,6 +198,33 @@ public class AccountsController implements Initializable{
     
     public void selectSavings() {
     	createAccountType.setText("Savings");
+    }
+    
+    public void addAccountActivity() {
+    	if (selectAccountActivity.getText().equalsIgnoreCase("Select Account")) return;
+    	
+    	String acct = selectAccountActivity.getText();
+    	ArrayList<Expense> expenses = new ArrayList<Expense>();
+    	
+    	try {
+			expenses = database.returnAllExpenseObjects();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	
+    	ArrayList<ObservableTransaction> obs = new ArrayList<ObservableTransaction>();
+    	for(Expense e : expenses) {
+    		if (e.getAccountName().equalsIgnoreCase(acct)) {
+    			obs.add(new ObservableTransaction(e));
+    		}
+    	}
+    	activity.clear();
+    	activity.addAll(obs);
+    	activityTable.setItems(activity);
+    	
+    	
     }
 }
 

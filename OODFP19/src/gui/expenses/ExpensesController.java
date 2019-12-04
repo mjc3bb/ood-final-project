@@ -3,7 +3,9 @@ package gui.expenses;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
@@ -32,7 +34,7 @@ public class ExpensesController implements Initializable {
     private TableView<ObservableTransaction> expensesTable;
 
     @FXML
-    private TableColumn<ObservableTransaction, String> location, recurring, account, date;
+    private TableColumn<ObservableTransaction, String> location, category, recurring, account, date;
 
     @FXML
     private TableColumn<ObservableTransaction, Double> amount;
@@ -58,7 +60,9 @@ public class ExpensesController implements Initializable {
     @FXML
     private Label categoryHeader, groceryCategory, transportationCategory, diningCategory, shoppingCategory,
     utilitiesCategory, entertainmentCategory, groceryAmount, transportationAmount, diningAmount, shoppingAmount,
-    utilitiesAmount, entertainmentAmount;
+    utilitiesAmount, entertainmentAmount, seasonalCategory, seasonalAmount;
+    
+    private double grocerySpending, transportationSpending, diningSpending, shoppingSpending, utilitiesSpending, entertainmentSpending, seasonalSpending;
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////// DATABASE OPERATION  //////////////////////////////////////////////////////////////
@@ -69,7 +73,7 @@ public class ExpensesController implements Initializable {
 
 	private void refreshTransactionTable() {
 		try {
-			dbTransactions = database.returnExpenseObjects("11/01/2019");
+			dbTransactions = database.returnAllExpenseObjects();
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -77,6 +81,7 @@ public class ExpensesController implements Initializable {
 		ArrayList<ObservableTransaction> conversion = new ArrayList<ObservableTransaction>();
     	for (Expense t : dbTransactions) {
     		ObservableTransaction at = new ObservableTransaction(t);
+    		Account ac = t.getAccount();
     		conversion.add(at);
     	}
     	transactionsTableList.setAll(conversion);
@@ -94,7 +99,7 @@ public class ExpensesController implements Initializable {
     		System.out.println("Cannot parse provided double value.");
     	}
     	String location = expenseLocation.getText();
-    	String date = expenseDate.getValue().toString();
+    	Date date = java.sql.Date.valueOf(expenseDate.getValue());
     	String account = expenseAccount.getText().toString();
     	String category = expenseCategory.getText().toString();
     	boolean recurring = reccuringCheckbox.isSelected();
@@ -107,6 +112,7 @@ public class ExpensesController implements Initializable {
 		}
     	refreshTransactionTable();
     	resetAddExpense();
+    	updateExpenseCategoryLabels();
     	
     }	
 	
@@ -119,12 +125,14 @@ public class ExpensesController implements Initializable {
     @Override
 	public void initialize(URL Ulocation, ResourceBundle resources) {
 		location.setCellValueFactory(new PropertyValueFactory<>("location"));
+		category.setCellValueFactory(new PropertyValueFactory<>("category"));
 		amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		date.setCellValueFactory(new PropertyValueFactory<>("date"));
 		account.setCellValueFactory(new PropertyValueFactory<>("account"));
 		recurring.setCellValueFactory(new PropertyValueFactory<>("recurring"));
 		refreshTransactionTable();
 		addAccountsToAccountSelectAction();
+		updateExpenseCategoryLabels();
 		
 	}
 	
@@ -209,6 +217,68 @@ public class ExpensesController implements Initializable {
 		expenseCategory.setText("Category");
 		reccuringCheckbox.setSelected(false);
 		
+	}
+	
+	/**
+	 * Adds expenses to labels.
+	 */
+	private void updateExpenseCategoryLabels() {
+		ArrayList<Expense> expenses = new ArrayList<Expense>();
+		try {
+			expenses = database.returnAllExpenseObjects();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		getExpenseCategoryTotals(expenses);
+		
+		
+	}
+
+	private void getExpenseCategoryTotals(ArrayList<Expense> expenses) {
+		
+		resetExpenseCategories();
+		
+		if (expenses.isEmpty()) return;
+		
+		for (Expense e : expenses) {
+			String cat = e.getCategory();
+			if (cat == null) continue;
+			switch (cat) {
+			case "Grocery"			: 	grocerySpending += e.getTransaction(); break;
+			case "Transportation"	: 	transportationSpending += e.getTransaction(); break;
+			case "Bill/Utility"		: 	utilitiesSpending += e.getTransaction(); break;
+			case "Dining"			: 	diningSpending += e.getTransaction(); break;
+			case "Shopping"			: 	shoppingSpending += e.getTransaction(); break;
+			case "Entertainment"	: 	entertainmentSpending += e.getTransaction(); break;
+			case "Seasonal"			: 	seasonalSpending += e.getTransaction(); break;
+			default					:	break;
+			}
+		}
+		
+		groceryAmount.setText(Double.toString(grocerySpending));
+		transportationAmount.setText(Double.toString(transportationSpending));
+		diningAmount.setText(Double.toString(diningSpending));
+		shoppingAmount.setText(Double.toString(shoppingSpending));
+		utilitiesAmount.setText(Double.toString(utilitiesSpending));
+		entertainmentAmount.setText(Double.toString(entertainmentSpending));
+		seasonalAmount.setText(Double.toString(seasonalSpending));
+		
+	}
+
+	private void resetExpenseCategories() {
+	
+		grocerySpending = 0.00;
+		transportationSpending = 0.00;
+		diningSpending = 0.00;
+		shoppingSpending = 0.00;
+		utilitiesSpending = 0.00;
+		entertainmentSpending = 0.00;
+		seasonalSpending = 0.00;
 	}
 	
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

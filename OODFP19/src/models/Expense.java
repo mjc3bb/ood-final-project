@@ -24,14 +24,18 @@ public class Expense {
 	private Date transactionDate;
 
 	//Location of the amount as a String
-	@DatabaseField(dataType=DataType.STRING_BYTES)
+	@DatabaseField(dataType=DataType.STRING)
 	private String location;
 	
 	//References the account the amount is attached to
 	@DatabaseField(foreign = true)
 	private Account account;
+	
+	//References the account the amount is attached to
+	@DatabaseField(dataType=DataType.STRING)
+	private String accountName;
 
-	@DatabaseField(dataType=DataType.STRING_BYTES)
+	@DatabaseField(dataType=DataType.STRING)
 	private String category; 
 
 	//Boolean that determines whether a amount is recurring or not
@@ -53,6 +57,7 @@ public class Expense {
 		this.account = account;
 		this.category = category;
 		this.recurring = recurring;
+		this.accountName = account.getAccountName();
 	}
 
 	public long getEntryID() {
@@ -93,6 +98,10 @@ public class Expense {
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+	
+	public String getAccountName() {
+		return this.accountName;
 	}
 
 	public String getCategory() {

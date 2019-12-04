@@ -11,13 +11,13 @@ public class Account {
 	@DatabaseField(generatedId=true)
 	private long accountID;
 	
-	@DatabaseField(dataType=DataType.STRING_BYTES)
+	@DatabaseField(dataType=DataType.STRING)
 	private String accountName;
 	
 	@DatabaseField(dataType=DataType.DOUBLE)
 	private double currentBalance;
 	
-	@DatabaseField(dataType=DataType.STRING_BYTES)
+	@DatabaseField(dataType=DataType.STRING)
 	private String accountType;
 	
 	public Account() {

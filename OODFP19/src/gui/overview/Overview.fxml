@@ -1,60 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import gui.overview.DoughnutChart?>
+<!-- <?import gui.overview.DoughnutChart?> -->
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../../../assets/css/modena_dark.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.overview.OverviewController">
    <children>
-      <DoughnutChart fx:id="chart" layoutX="117.0" layoutY="92.0" prefHeight="519.0" prefWidth="542.0" stylesheets="@../../../assets/css/pie.css" AnchorPane.bottomAnchor="89.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="541.0" AnchorPane.topAnchor="92.0" />
-      <Label layoutX="821.0" layoutY="106.0" text="Total Account Balance" textFill="WHITE">
+      <DoughnutChart fx:id="chart" layoutX="89.0" layoutY="55.0" prefHeight="592.0" prefWidth="631.0" stylesheets="@../../../assets/css/pie.css" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="480.0" AnchorPane.topAnchor="55.0" />
+      <Label layoutX="825.0" layoutY="181.0" text="Total Account Balance" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="accountBalance" layoutX="872.0" layoutY="136.0" text="\$XXX.XX" textFill="#00fffb">
+      <Label fx:id="accountBalance" layoutX="876.0" layoutY="211.0" text="\$XXX.XX" textFill="#00fffb">
          <font>
             <Font size="25.0" />
          </font></Label>
-      <Label layoutX="811.0" layoutY="191.0" text="Total Income This Month:" textFill="WHITE">
+      <Label layoutX="815.0" layoutY="266.0" text="Total Income This Month" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="income" layoutX="876.0" layoutY="221.0" text="\$XXX.XX" textFill="#00e80f">
+      <Label fx:id="income" layoutX="880.0" layoutY="296.0" text="\$XXX.XX" textFill="#00e80f">
          <font>
             <Font size="25.0" />
          </font></Label>
-      <Label layoutX="834.0" layoutY="444.0" text="Quick Add Expense" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <JFXTextField focusColor="#00eb00" labelFloat="true" layoutX="856.0" layoutY="493.0" promptText="Location" stylesheets="@../../../assets/css/textfield.css" unFocusColor="#008433" />
-      <JFXTextField focusColor="#00eb00" labelFloat="true" layoutX="738.0" layoutY="493.0" prefHeight="25.0" prefWidth="91.0" promptText="Amount" stylesheets="@../../../assets/css/textfield.css" unFocusColor="#008433" />
-      <JFXDatePicker defaultColor="WHITE" layoutX="783.0" layoutY="565.0" promptText="Date" stylesheets="@../../../assets/css/textfield.css" />
-      <MenuButton layoutX="1025.0" layoutY="493.0" mnemonicParsing="false" style="-fx-background-color: #454545;" text="Account" textFill="WHITE">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
-      <JFXButton layoutX="999.0" layoutY="566.0" style="-fx-background-color: #02d43a;" text="Submit" textFill="WHITE" />
-      <Label layoutX="470.0" layoutY="29.0" stylesheets="@../../../assets/css/modena_dark.css" text="NOVEMBER 2019" textFill="WHITE">
+      <Label layoutX="470.0" layoutY="29.0" stylesheets="@../../../assets/css/modena_dark.css" text="DECEMBER 2019" textFill="WHITE">
          <font>
             <Font size="34.0" />
          </font>
       </Label>
-      <Label layoutX="801.0" layoutY="279.0" text="Total Spending This Month:" textFill="WHITE">
+      <Label layoutX="805.0" layoutY="354.0" text="Total Spending This Month" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="spending" layoutX="876.0" layoutY="313.0" text="\$XXX.XX" textFill="#c70000">
+      <Label fx:id="spending" layoutX="880.0" layoutY="388.0" text="\$XXX.XX" textFill="#c70000">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="805.0" layoutY="444.0" text="Percentage of Income Spent" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="percentage" layoutX="884.0" layoutY="481.0" text="\%XX.XX" textFill="#ffb835">
          <font>
             <Font size="25.0" />
          </font>

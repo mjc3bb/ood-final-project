@@ -1,6 +1,9 @@
 package observableObjects;
 
 import models.Expense;
+
+import java.text.SimpleDateFormat;
+
 import javafx.beans.property.*;
 
 public class ObservableTransaction {
@@ -11,12 +14,13 @@ public class ObservableTransaction {
 	private SimpleStringProperty account;
 	private SimpleStringProperty category;
 	private SimpleStringProperty recurring;
+	SimpleDateFormat df = new SimpleDateFormat("MM/dd/YY");
 	
 	public ObservableTransaction(Expense t) {
 		this.amount = new SimpleDoubleProperty(t.getTransaction());
-		this.date = new SimpleStringProperty(t.getTransactionDate().toString());
+		this.date = new SimpleStringProperty(df.format(t.getTransactionDate()));
 		this.location = new SimpleStringProperty(t.getLocation());
-		this.account = new SimpleStringProperty(t.getAccount().getAccountName());
+		this.account = new SimpleStringProperty(t.getAccountName());
 		this.category = new SimpleStringProperty(t.getCategory());
 		this.recurring = new SimpleStringProperty(booleanToString(t.getRecurring()));
 	}
@@ -34,7 +38,7 @@ public class ObservableTransaction {
 	}
 
 	public String getAccount() {
-		return "Gage";
+		return account.get();
 	}
 
 	public String getCategory() {

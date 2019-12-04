@@ -23,7 +23,7 @@ public class DoughnutChart extends PieChart {
 		 innerCircle.setFill(Color.valueOf("#343a41"));
 	     innerCircle.setStroke(Color.WHITE);
 	     innerCircle.setStrokeWidth(2);
-	     this.setLegendVisible(false);
+	     //this.setLegendVisible(false);
 	          
 	}
 	

@@ -78,7 +78,13 @@ public class SelectQueryOperator {
 		// TODO Queries for expenses within a month and places them as objects in an array list
 		Date d1 = new SimpleDateFormat("YYYY/MM/DD").parse(MM);
 		List<Expense> transactions = transactionDao.queryBuilder().where().eq("negative", true).query();
-		transactions.removeIf(t -> t.getTransactionDate().getMonth()!=d1.getMonth());
+		//transactions.removeIf(t -> t.getTransactionDate().getMonth()!=d1.getMonth());
+		return new ArrayList<Expense>(transactions);
+	}
+	
+	public ArrayList<Expense> returnAllExpenseObjects() throws SQLException, ParseException {
+		// TODO Queries for expenses within a month and places them as objects in an array list
+		List<Expense> transactions = transactionDao.queryBuilder().query();
 		return new ArrayList<Expense>(transactions);
 	}
 
